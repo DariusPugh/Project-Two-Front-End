@@ -3,3 +3,14 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+#appContainer{
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#sidebar{
+  background-color: lightblue;
+  min-height: 100vh;
+}
+
