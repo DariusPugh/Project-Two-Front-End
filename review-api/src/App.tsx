@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react';
 
 class App extends Component {
-  render() {
+  public render() {
     return (
       <div className="App">
         <header className="App-header">
