@@ -35,6 +35,15 @@ export class Sidebar extends React.Component<any, any> {
             <NavItem>
               <Link to="/test2" className="unset-anchor nav-link">Test2</Link>
             </NavItem>
+            <NavItem>
+              <Link to="/sign-in" className="unset-anchor nav-link">Sign In</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/register" className="unset-anchor nav-link">Register</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/create-item" className="unset-anchor nav-link">Create Item</Link>
+            </NavItem>
           </Nav>
         </Row>
         </Container>
