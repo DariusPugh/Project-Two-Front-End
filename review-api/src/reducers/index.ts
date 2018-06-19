@@ -20,5 +20,5 @@ export interface IState {
 };
 
 export const state = combineReducers<IState>({
-  sidebar: sidebarReducer,
+  sidebar: sidebarReducer
 });
