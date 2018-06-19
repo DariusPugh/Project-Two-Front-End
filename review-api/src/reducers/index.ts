@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import {sidebarReducer} from "../reducers/sidebar.reducer"
 
 
 // export interface ISignIn {

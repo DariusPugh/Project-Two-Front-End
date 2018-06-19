@@ -5,11 +5,17 @@ import { Nav, NavItem} from 'reactstrap';
 import {Button,Input,InputGroup, InputGroupAddon} from 'reactstrap';
 
 
-export class Sidebar extends React.Component<any, any> {
+export class SidebarComponent extends React.Component<any, any> {
 
   constructor(props: any) {
     super(props);
   }
+
+  public updateInput = (e: any) => {
+    const input = e.target.value;
+    this.props.updateInput(input);
+  }
+
 
   public render() {
     return (
@@ -19,7 +25,10 @@ export class Sidebar extends React.Component<any, any> {
           <Row className="justify-content-center">
             <Col>
               <InputGroup size="sm">
-                <Input />
+                <Input 
+                  value ={this.props.input}
+                  onChange={this.updateInput}
+                />
                 <InputGroupAddon addonType="append">
                   <Button color="secondary">i</Button>
                 </InputGroupAddon>
