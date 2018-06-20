@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import { categoryReducer } from "./category.reducer";
-import {sidebarReducer} from "../reducers/sidebar.reducer"
+import {sidebarReducer} from "../reducers/sidebar.reducer";
+import { itemReducer } from "./item.reducer";
+import { reviewReducer } from "./review.reducer";
 
 export interface IState{
     category: ICategoryState,
@@ -23,6 +25,8 @@ export interface IReviewState {
 
 export const state = combineReducers<IState>({
     category: categoryReducer,
+    item: itemReducer,
+    review: reviewReducer,
     sidebar: sidebarReducer
 });
 

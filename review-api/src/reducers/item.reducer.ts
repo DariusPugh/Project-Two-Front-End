@@ -5,7 +5,7 @@ const initialState: IItemState = {
   title: '',
 }
 
-export const categoryReducer = (state = initialState, action: any) => {
+export const itemReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case itemTypes.UPDATE_TITLE:
       return {

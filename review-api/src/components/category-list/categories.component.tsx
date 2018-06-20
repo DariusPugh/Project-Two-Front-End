@@ -36,8 +36,8 @@ export class CategoryListComponent extends React.Component<any, any> {
     }
 
     private selectCategory = (e:any) => {
-        alert(e.target.id);
-        this.props.updateCategory(e.target.id);
-        this.props.history.push(`/${e.target.id}`);
+        const cat = e.target.id;
+        this.props.updateCategory(cat);
+        this.props.history.push(`/${cat}`);
     }
 }
