@@ -16,7 +16,7 @@ export const sidebarReducer = (state = initialState, action: any) => {
     case sidebarTypes.UPDATE_ITEMS:
       return{
         ...state,
-        input: action.payload.items
+        items: action.payload.items
       }
   }
 

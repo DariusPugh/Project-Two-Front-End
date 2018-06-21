@@ -21,7 +21,7 @@ class App extends React.Component {
           <Container id="appContainer">
             <Row>
             <Col xs="3">
-              <Route><SidebarContainer/></Route>
+              <Route component={SidebarContainer}/> 
             </Col>
             <Col>
                 <Switch>

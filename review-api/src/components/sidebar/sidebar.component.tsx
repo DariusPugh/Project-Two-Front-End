@@ -24,7 +24,11 @@ export class SidebarComponent extends React.Component<any, any> {
     console.log(url);
     axios.get(url)
     .then((data)=>{
-      console.log(data);
+      console.log(data.data);
+      
+      this.props.updateItems(data.data);
+
+      this.props.history.push('/display-item')
     })
     .catch((err)=>{
       console.log(err);
