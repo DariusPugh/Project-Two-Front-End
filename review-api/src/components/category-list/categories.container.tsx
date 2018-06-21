@@ -9,7 +9,7 @@ export const mapDispatchToProps = {
   updateCategory
 };
 
-export const SignInContainer = connect(
+export const CategoryListContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(CategoryListComponent);

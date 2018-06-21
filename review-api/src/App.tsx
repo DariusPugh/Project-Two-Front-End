@@ -10,7 +10,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { TestComponent } from './components/test/test.component';
 import { TestComponent2 } from './components/test/test2.component';
-import { CategoryListComponent } from './components/category-list/categories.component';
+import { CategoryListContainer } from './components/category-list/categories.container';
+import { ItemListContainer } from './components/item-list/items.container';
+import { ReviewListContainer } from './components/review-list/reviews.container';
+import { ReviewContainer } from './components/review/review.container';
 
 class App extends React.Component {
   public render() {
@@ -30,7 +33,10 @@ class App extends React.Component {
                   <Route path="/sign-in" component={SignInComponent} />
                   <Route path="/register" component={RegisterComponent} />
                   <Route path="/create-item" component={CreateItemComponent} />
-                  <Route path="/categories" component={CategoryListComponent} />
+                  <Route path="/categories/:category/:item/r/:rID" component={ReviewContainer} />
+                  <Route path="/categories/:category/:item" component={ReviewListContainer}/>
+                  <Route path="/categories/:category" component={ItemListContainer}/>
+                  <Route path="/categories" component={CategoryListContainer} />
                 </Switch>
             </Col>
             </Row>

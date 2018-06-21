@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { IState } from '../../reducers';
-import { ReviewListComponent } from './reviews.component';
+import { ReviewComponent } from './review.component';
 import { updateReviewID } from '../../actions/review/review.actions';
 
 const mapStateToProps = (state: IState) => (state);
@@ -9,7 +9,7 @@ export const mapDispatchToProps = {
   updateReviewID
 };
 
-export const ReviewListContainer = connect(
+export const ReviewContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ReviewListComponent);
+)(ReviewComponent);

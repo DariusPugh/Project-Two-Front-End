@@ -28,16 +28,16 @@ export class CategoryListComponent extends React.Component<any, any> {
                 {this.state.categoryList.map((category:any, i:any) => {
                     // style this as a link
                     return (
-                        <a key={i} className="link" onClick={this.selectCategory} id={category.category}>{category.category}</a>
+                        <div key={i} className="link" onClick={this.selectCategory} id={category.category}>{category.category}</div>
                     );
                 })}
             </div>
         );
     }
 
-    private selectCategory = (e:any) => {
+    public selectCategory = (e:any) => {
         const cat = e.target.id;
         this.props.updateCategory(cat);
-        this.props.history.push(`/${cat}`);
+        this.props.history.push(`/categories/${cat}`);
     }
 }

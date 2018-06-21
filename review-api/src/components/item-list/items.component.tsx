@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as netService from '../../net-service/netService';
 // import { environment } from '../../environment';
 
 export class ItemListComponent extends React.Component<any, any> {
@@ -11,6 +12,23 @@ export class ItemListComponent extends React.Component<any, any> {
 
     public componentDidMount() {
         // call server to get the component list
+        let category;
+        if (this.props.category.category) {
+            category = this.props.category.category;
+        } else {
+            const splitPath = this.props.location.pathname.split('/');
+            category = splitPath[splitPath.length-1];
+        }
+        netService.getData(`/categories/${category}`)
+                .then((data) => {
+                    const items = data.data;
+                    this.setState({
+                        ...this.state,
+                        itemList: items,
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
     }
 
     public render() {
@@ -19,14 +37,23 @@ export class ItemListComponent extends React.Component<any, any> {
                 {this.state.itemList.map((item:any, i:any) => {
                     // style this as a link
                     return (
-                        <div key={i} className="link" onClick={this.updateCategory} id={item.title}>{item.title}</div>
+                        <div key={i} className="link" onClick={this.updateTitle} id={item.title}>{item.title}</div>
                     );
                 })}
             </div>
         );
     }
 
-    private updateCategory (e:any) {
-        this.props.updateCategory(e.target.id);
+    private updateTitle = (e:any) => {
+        const title = e.target.id;
+        this.props.updateTitle(title);
+        let category;
+        if (this.props.category.category) {
+            category = this.props.category.category;
+        } else {
+            const splitPath = this.props.location.pathname.split('/');
+            category = splitPath[splitPath.length-1];
+        }
+        this.props.history.push(`/categories/${category}/${title}`);
     }
 }
