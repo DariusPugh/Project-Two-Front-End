@@ -10,15 +10,15 @@ export interface ICognitoUser {
 }
 
 export interface ISignIn {
+  errorMessage: string,
   firstSignIn: {
     code: string,
     isFirstSignIn: boolean,
     password: string,
     passwordConfirmation: string
   },
-  username: string,
   password: string,
-  errorMessage: string
+  username: string
 }
 
 export interface ISidebar{
@@ -28,12 +28,13 @@ export interface ISidebar{
 
 
 export interface IState {
-  cognitoUser: ICognitoUser,
   signIn: ISignIn,
-  sidebar: ISidebar
+  sidebar: ISidebar,
+  cognitoUser: ICognitoUser
 };
+
 export const state = combineReducers<IState>({
   cognitoUser: cognitoUserReducer,
   sidebar: sidebarReducer,
-  signIn: signInReducer
+  signIn: signInReducer,
 });
