@@ -12,12 +12,12 @@ export const updateInput = (input:string)=> (dispatch:any)=>{
     
   }
 
-  export const updateItems = (input:any[])=> (dispatch:any)=>{
+  export const updateItems = (items:any[])=> (dispatch:any)=>{
     dispatch({
         payload:{
-          input
+          items
         },
-        type: sidebarTypes.UPDATE_INPUT
+        type: sidebarTypes.UPDATE_ITEMS
       }
     )
     
