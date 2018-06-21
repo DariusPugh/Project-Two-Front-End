@@ -2,7 +2,8 @@ import { ISidebar } from '.';
 import { sidebarTypes } from '../actions/sidebar/sidebar.types';
 
 const initialState: ISidebar = {
-  input: ''
+  input: '',
+  items: [],
 }
 
 export const sidebarReducer = (state = initialState, action: any) => {
@@ -11,6 +12,11 @@ export const sidebarReducer = (state = initialState, action: any) => {
       return {
         ...state,
         input: action.payload.input
+      }
+    case sidebarTypes.UPDATE_ITEMS:
+      return{
+        ...state,
+        input: action.payload.items
       }
   }
 

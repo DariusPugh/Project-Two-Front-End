@@ -10,6 +10,7 @@ import {sidebarReducer} from "../reducers/sidebar.reducer"
 
 export interface ISidebar{
     input: string,
+    items: any[],
 
 }
 

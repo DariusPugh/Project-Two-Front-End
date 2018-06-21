@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {Col, Container, Row} from 'reactstrap';
 import { Nav, NavItem} from 'reactstrap';
 import {Button,Input,InputGroup, InputGroupAddon} from 'reactstrap';
+import axios from 'axios';
 
 
 export class SidebarComponent extends React.Component<any, any> {
@@ -16,6 +17,16 @@ export class SidebarComponent extends React.Component<any, any> {
     this.props.updateInput(input);
   }
 
+  public searchItemsByTitle = (e:any)=>{
+    console.log(e);
+    axios.get('https://owdw8b3ri4.execute-api.us-east-2.amazonaws.com/dev/items/'+"DD343R End Table")
+    .then((data)=>{
+      console.log(data);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
 
   public render() {
     return (
@@ -30,7 +41,9 @@ export class SidebarComponent extends React.Component<any, any> {
                   onChange={this.updateInput}
                 />
                 <InputGroupAddon addonType="append">
-                  <Button color="secondary">i</Button>
+                  <Button color="secondary"
+                  onClick = {this.searchItemsByTitle}
+                  >i</Button>
                 </InputGroupAddon>
               </InputGroup>
             </Col>
@@ -52,6 +65,9 @@ export class SidebarComponent extends React.Component<any, any> {
             </NavItem>
             <NavItem>
               <Link to="/create-item" className="unset-anchor nav-link">Create Item</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/display-item" className="unset-anchor nav-link">Display Item</Link>
             </NavItem>
           </Nav>
         </Row>
