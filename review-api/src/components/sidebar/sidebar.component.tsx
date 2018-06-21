@@ -19,7 +19,10 @@ export class SidebarComponent extends React.Component<any, any> {
 
   public searchItemsByTitle = (e:any)=>{
     console.log(e);
-    axios.get('https://owdw8b3ri4.execute-api.us-east-2.amazonaws.com/dev/items/'+"DD343R End Table")
+    console.log(this.props.input);  // SCX2000 Desk Chair
+    const url = 'https://owdw8b3ri4.execute-api.us-east-2.amazonaws.com/dev/items/'+`${this.props.input.replace(/ /g, '+')}`
+    console.log(url);
+    axios.get(url)
     .then((data)=>{
       console.log(data);
     })
