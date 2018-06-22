@@ -44,7 +44,7 @@ export class ComposeComponent extends React.Component<any, any> {
         const review = {
             body: this.state.body,
             score: this.state.score,
-            username: /* get logged-in user from local storage */ 'Dynamo'
+            username: this.props.cognitoUser.user.getUsername(),
         }
 
         netService.postData('/review', review)
@@ -60,7 +60,6 @@ export class ComposeComponent extends React.Component<any, any> {
                     const splitPath = this.props.location.pathname.split('/');
                     category = splitPath[splitPath.length-3];
                     title = splitPath[splitPath.length-2];
-                    alert(`${title} ${category}`)
                 }
                 netService.postData(`/categories/${category}/${title}/review`, rID)
                     .then((resp) => {
