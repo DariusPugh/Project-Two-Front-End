@@ -24,6 +24,7 @@ export interface ISignIn {
 export interface ISidebar{
     input: string,
     items: any[],
+    selectedItem: {}
 }
 
 

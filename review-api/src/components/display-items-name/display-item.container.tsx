@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import { IState } from '../../reducers';
-import {updateInput} from '../../actions/sidebar/sidebar.actions'
+import {updateInput, updateSelectedItem} from '../../actions/sidebar/sidebar.actions'
 import {DisplayItemComponent} from './display-item.component'
 
 const mapStateToProps = (state: IState) => (state);
 
 export const mapDispatchToProps = {
-  updateInput
+  updateInput,
+  updateSelectedItem
 };
 
 export const DisplayItemsContainer = connect(
