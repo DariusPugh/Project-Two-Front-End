@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import * as awsCognito from 'amazon-cognito-identity-js';
 
@@ -36,7 +35,7 @@ export class SignInComponent extends React.Component<any, any> {
     // console.log(idtok.payload['cognito:groups']) //payload has the user info on it
 
     // navigate pages now that we have successfully logged in
-    this.props.history.push('/movies');
+    this.props.history.push('/test');
     this.props.resetState();
   }
 
@@ -62,8 +61,8 @@ export class SignInComponent extends React.Component<any, any> {
     };
     const authenticationDetails = new awsCognito.AuthenticationDetails(authenticationData);
     const poolData = {
-      ClientId: '4gilr3q6oi4cb6ffqcm57dc43n', // Your client id here
-      UserPoolId: 'us-east-2_qbwxLr1hJ', // Your user pool id here
+      ClientId: '7nfuc6t315038970o2664ltn0d', // Your client id here
+      UserPoolId: 'us-east-2_uIEwE9Qxu', // Your user pool id here
     };
     const userPool = new awsCognito.CognitoUserPool(poolData);
     const userData = {
