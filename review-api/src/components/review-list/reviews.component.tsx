@@ -80,6 +80,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                     // style this as a link
                     return (
                         <div key={i} className="link" onClick={this.updateReview} id={review.reviewID}>{this.state.reviewList[i].username}</div>
+                        
                     );
                 })}
             </div>
