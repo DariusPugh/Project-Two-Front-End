@@ -11,6 +11,10 @@ import { SidebarContainer } from './components/sidebar/sidebar.cotainer';
 import { SignInContainer } from './components/sign-in/sign-in.container';
 import { TestComponent } from './components/test/test.component';
 import { TestComponent2 } from './components/test/test2.component';
+import { CategoryListContainer } from './components/category-list/categories.container';
+import { ItemListContainer } from './components/item-list/items.container';
+import { ReviewListContainer } from './components/review-list/reviews.container';
+import { ReviewContainer } from './components/review/review.container';
 
 class App extends React.Component {
   public render() {
@@ -31,6 +35,10 @@ class App extends React.Component {
                   <Route path="/register" component={RegisterComponent} />
                   <Route path="/create-item" component={CreateItemComponent} />
                   <Route path="/display-item" component={DisplayItemsContainer} />
+                  <Route path="/categories/:category/:item/r/:rID" component={ReviewContainer} />
+                  <Route path="/categories/:category/:item" component={ReviewListContainer}/>
+                  <Route path="/categories/:category" component={ItemListContainer}/>
+                  <Route path="/categories" component={CategoryListContainer} />
                 </Switch>
             </Col>
             </Row>

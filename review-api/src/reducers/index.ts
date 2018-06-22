@@ -1,8 +1,11 @@
-import { combineReducers } from "redux";
-import { sidebarReducer } from "../reducers/sidebar.reducer"
-import { signInReducer } from "./sign-in.reducer";
 import { CognitoUser } from "amazon-cognito-identity-js";
+import { combineReducers } from "redux";
+import { sidebarReducer } from "../reducers/sidebar.reducer";
+import { categoryReducer } from "./category.reducer";
 import { cognitoUserReducer } from "./cognito-user.reducer";
+import { itemReducer } from "./item.reducer";
+import { reviewReducer } from "./review.reducer";
+import { signInReducer } from "./sign-in.reducer";
 
 
 export interface ICognitoUser { 
@@ -34,8 +37,32 @@ export interface IState {
   cognitoUser: ICognitoUser
 };
 
+export interface IState{
+    category: ICategoryState,
+    item: IItemState,
+    review: IReviewState,
+    sidebar: ISidebar,
+}
+
+export interface ICategoryState {
+    category: string,
+}
+
+export interface IItemState {
+    title: string,
+}
+
+export interface IReviewState {
+    rID: number,
+}
+
 export const state = combineReducers<IState>({
-  cognitoUser: cognitoUserReducer,
-  sidebar: sidebarReducer,
-  signIn: signInReducer,
+    category: categoryReducer,
+    cognitoUser: cognitoUserReducer,
+    item: itemReducer,
+    review: reviewReducer,
+    sidebar: sidebarReducer,
+    signIn: signInReducer,
 });
+
+
