@@ -35,11 +35,8 @@ class App extends React.Component {
                   <Route path="/sign-in" component={SignInContainer} />
                   <Route path="/register" component={RegisterComponent} />
                   <Route path="/create-item" component={CreateItemComponent} />
-<<<<<<< HEAD
                   <Route path="/categories/:category/:item/review" component={ComposeContainer} />
-=======
                   <Route path="/display-item" component={DisplayItemsContainer} />
->>>>>>> 257f0ee8d841559ec0374f514266760fbe56b0b9
                   <Route path="/categories/:category/:item/r/:rID" component={ReviewContainer} />
                   <Route path="/categories/:category/:item" component={ReviewListContainer}/>
                   <Route path="/categories/:category" component={ItemListContainer}/>

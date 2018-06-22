@@ -9,6 +9,13 @@ export class ComposeComponent extends React.Component<any, any> {
             score: '',
         }
     }
+    
+    public componentDidMount() {
+        if (!this.props.cognitoUser.user) {
+            this.props.history.push('');
+            
+        }
+    }
 
     public render() {
         return (

@@ -44,14 +44,25 @@ export class ReviewComponent extends React.Component<any, any> {
                         </div>
                     );
                 })}
+                {this.commentBox()}
+            
+            </div>
+        );
+    }
+
+    private commentBox = () => {
+        if (this.props.cognitoUser.user) {
+            return (
+                <div>
                 <div className="form-group">
                     <div>Comment:</div>
                     <textarea name="body" className="form-control" rows={3} id="comment" placeholder="Post a comment on this review." onChange={this.inputChange} value={this.state.comment}/>
                 </div>
                 <button className="btn btn-default text-right" role="button" onClick={this.submit} type="button">Submit</button>
-            
-            </div>
-        );
+                </div>
+            );
+        }
+        return;
     }
 
     private submit = () => {
@@ -65,15 +76,12 @@ export class ReviewComponent extends React.Component<any, any> {
             }
             const com = {
                 message: this.state.comment,
-                username: /* getusername from logged in state */ 'Dynamo',
+                username: this.props.cognitoUser.user.getUsername(),
             }
             netService.postData(`/review/${rid}`, com)
                 .then((data) => {
                     const comments = this.state.review.comments;
-                    comments.push({
-                        message: this.state.comment,
-                        username: /* get username from logged in state */ 'Dynamo',
-                    });
+                    comments.push(com);
                     const rev = this.state.review;
                     rev.comments = comments;
                     this.setState({

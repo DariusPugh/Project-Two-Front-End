@@ -76,7 +76,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                 <div>{'Title:' + this.state.item.title}</div>
                 <div>{'Score:' + this.state.item.avgScore}</div>
                 <div>{'Description:' + this.state.item.description}</div>
-                <button className="btn btn-default text-right" role="button" onClick={this.toReview} type="button">Review this!</button>
+                {this.reviewThisButton()}
                 {this.state.reviewList.map((review:any, i:any) => {
                     // style this as a link
                     return (
@@ -85,6 +85,15 @@ export class ReviewListComponent extends React.Component<any, any> {
                 })}
             </div>
         );
+    }
+
+    private reviewThisButton = () => {
+        if (this.props.cognitoUser.user) {
+            return (
+                <button className="btn btn-default text-right" role="button" onClick={this.toReview} type="button">Review this!</button>
+            );
+        } 
+        return;
     }
 
     private toReview = () => {
