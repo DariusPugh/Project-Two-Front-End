@@ -11,3 +11,26 @@ export const updateInput = (input:string)=> (dispatch:any)=>{
     )
     
   }
+
+  export const updateItems = (items:any[])=> (dispatch:any)=>{
+    dispatch({
+        payload:{
+          items
+        },
+        type: sidebarTypes.UPDATE_ITEMS
+      }
+    )
+    
+  }
+
+  export const updateSelectedItem = (selectedItem:any)=> (dispatch:any)=>{
+    dispatch({
+        payload:{
+          selectedItem
+        },
+        type: sidebarTypes.UPDATE_SELECTED_ITEM
+      }
+    )
+    
+  }
+
