@@ -76,6 +76,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                 <div>{'Title:' + this.state.item.title}</div>
                 <div>{'Score:' + this.state.item.avgScore}</div>
                 <div>{'Description:' + this.state.item.description}</div>
+                <button className="btn btn-default text-right" role="button" onClick={this.toReview} type="button">Review this!</button>
                 {this.state.reviewList.map((review:any, i:any) => {
                     // style this as a link
                     return (
@@ -84,6 +85,20 @@ export class ReviewListComponent extends React.Component<any, any> {
                 })}
             </div>
         );
+    }
+
+    private toReview = () => {
+        let category;
+        let title;
+        if (this.props.category.category && this.props.item.title) {
+            category = this.props.category.category;
+            title = this.props.item.title;
+        } else {
+            const splitPath = this.props.location.pathname.split('/');
+            category = splitPath[splitPath.length-2];
+            title = splitPath[splitPath.length-1];
+        }
+        this.props.history.push(`/categories/${category}/${title}/review`);
     }
 
     private updateReview = (e:any) => {
