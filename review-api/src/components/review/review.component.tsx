@@ -5,6 +5,7 @@ export class ReviewComponent extends React.Component<any, any> {
     constructor(props:any) {
         super(props);
         this.state = {
+            comment: '',
             review: {
                 comments: [],
             },
@@ -13,7 +14,7 @@ export class ReviewComponent extends React.Component<any, any> {
 
     public componentDidMount() {
         let rid;
-        if (this.props.category.category && this.props.item.title && this.props.review.reviewID) {
+        if (this.props.review.reviewID) {
             rid = this.props.review.reviewID;
         } else {
             const splitPath = this.props.location.pathname.split('/');
@@ -43,7 +44,61 @@ export class ReviewComponent extends React.Component<any, any> {
                         </div>
                     );
                 })}
+                {this.commentBox()}
+            
             </div>
         );
+    }
+
+    private commentBox = () => {
+        if (this.props.cognitoUser.user) {
+            return (
+                <div>
+                <div className="form-group">
+                    <div>Comment:</div>
+                    <textarea name="body" className="form-control" rows={3} id="comment" placeholder="Post a comment on this review." onChange={this.inputChange} value={this.state.comment}/>
+                </div>
+                <button className="btn btn-default text-right" role="button" onClick={this.submit} type="button">Submit</button>
+                </div>
+            );
+        }
+        return;
+    }
+
+    private submit = () => {
+        if (this.state.comment) {
+            let rid;
+            if (this.props.review.reviewID) {
+                rid = this.props.review.reviewID;
+            } else {
+                const splitPath = this.props.location.pathname.split('/');
+                rid = splitPath[splitPath.length-1];
+            }
+            const com = {
+                message: this.state.comment,
+                username: this.props.cognitoUser.user.getUsername(),
+            }
+            netService.postData(`/review/${rid}`, com)
+                .then((data) => {
+                    const comments = this.state.review.comments;
+                    comments.push(com);
+                    const rev = this.state.review;
+                    rev.comments = comments;
+                    this.setState({
+                        ...this.state,
+                        comment: '',
+                        review: rev,
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
+        }
+    }
+
+    private inputChange = (e:any) => {
+        this.setState({
+            ...this.state,
+            [e.target.id]: e.target.value
+        });
     }
 }

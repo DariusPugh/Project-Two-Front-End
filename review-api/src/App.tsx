@@ -15,6 +15,7 @@ import { CategoryListContainer } from './components/category-list/categories.con
 import { ItemListContainer } from './components/item-list/items.container';
 import { ReviewListContainer } from './components/review-list/reviews.container';
 import { ReviewContainer } from './components/review/review.container';
+import { ComposeContainer } from './components/compose-review/compose.container';
 
 class App extends React.Component {
   public render() {
@@ -34,6 +35,7 @@ class App extends React.Component {
                   <Route path="/sign-in" component={SignInContainer} />
                   <Route path="/register" component={RegisterContainer} />
                   <Route path="/create-item" component={CreateItemComponent} />
+                  <Route path="/categories/:category/:item/review" component={ComposeContainer} />
                   <Route path="/display-item" component={DisplayItemsContainer} />
                   <Route path="/categories/:category/:item/r/:rID" component={ReviewContainer} />
                   <Route path="/categories/:category/:item" component={ReviewListContainer}/>

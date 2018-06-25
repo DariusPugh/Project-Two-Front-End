@@ -25,18 +25,22 @@ export interface ISignIn {
   username: string
 }
 
-export interface ISidebar{
+export interface ISidebar {
     input: string,
     items: any[],
     selectedItem: {}
 }
 
-
 export interface IState {
-  signIn: ISignIn,
-  sidebar: ISidebar,
-  cognitoUser: ICognitoUser
-};
+
+    category: ICategoryState,
+    item: IItemState,
+    review: IReviewState,
+    sidebar: ISidebar,
+    signIn: ISignIn,
+    cognitoUser: ICognitoUser
+}
+
 
 export interface ICategoryState {
     category: string,
