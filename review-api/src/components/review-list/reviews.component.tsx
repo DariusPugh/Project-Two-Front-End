@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as netService from '../../net-service/netService';
 // import { environment } from '../../environment';
+import {ModalComponent} from '../modal-user-profile/modal-user-profile.component'
 
 export class ReviewListComponent extends React.Component<any, any> {
     constructor(props:any) {
@@ -70,26 +71,46 @@ export class ReviewListComponent extends React.Component<any, any> {
             });
     }
 
+    public modalHandler= ()=>{
+        this.setState({
+            ... this.state,
+            openModal:true,
+        })
+    }
+
     public render() {
         return (
             <div>
                 <div>{'Title:' + this.state.item.title}</div>
                 <div>{'Score:' + this.state.item.avgScore}</div>
                 <div>{'Description:' + this.state.item.description}</div>
+                <div key={"item-container"} className="container">
                 {this.reviewThisButton()}
                 {this.state.reviewList.map((review:any, i:any) => {
                     // style this as a link
                     return (
-                        <div key={i} className="link" onClick={this.updateReview} id={review.reviewID}>{this.state.reviewList[i].username}</div>
-                        
+                            <div className="row" key={"row"+i}>
+                                <hr/>
+                                <div className="col">
+                                    <div key={i} className="link" onClick={this.updateReview} id={review.reviewID}>{this.state.reviewList[i].username}</div>
+                                </div>
+                                <div className="col">
+                                 <ModalComponent buttonLabel="View Profile" usernameModal ={this.state.reviewList[i].username} history={this.props.history}/>
+                                </div>
+                                <hr/>
+                            </div>
+                            
                     );
                 })}
+                </div>
             </div>
         );
     }
 
+
+
     private reviewThisButton = () => {
-        if (this.props.cognitoUser.user) {
+       if (this.props.cognitoUser.user) {
             return (
                 <button className="btn btn-default text-right" role="button" onClick={this.toReview} type="button">Review this!</button>
             );
@@ -108,6 +129,8 @@ export class ReviewListComponent extends React.Component<any, any> {
             category = splitPath[splitPath.length-2];
             title = splitPath[splitPath.length-1];
         }
+        this.props.updateCategory(category);
+        this.props.updateTitle(title);
         this.props.history.push(`/categories/${category}/${title}/review`);
     }
 

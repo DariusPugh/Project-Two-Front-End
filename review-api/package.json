@@ -10,6 +10,8 @@
     "eject": "react-scripts-ts eject"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/bootstrap": "^4.1.1",
     "@types/react-redux": "^6.0.2",
     "@types/reactstrap": "^6.0.0",
     "@types/redux-logger": "^3.0.6",

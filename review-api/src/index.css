@@ -4,13 +4,35 @@ body {
   font-family: sans-serif;
 }
 
+a {
+  color: white;
+}
+
+.container {
+  max-width: 100%;
+}
+
+#sidebar{
+  background-color: black;
+  min-height: 100vh;
+}
+
+hr{
+  width: 100%;
+}
+
 #appContainer{
   margin-left: 0;
   padding-left: 0;
 }
 
-#sidebar{
-  background-color: lightblue;
-  min-height: 100vh;
+#error-message {
+  color: red;
+}
+
+#sidebarColumn{
+  margin: 0;
+  padding-right: 0;
+
 }
 

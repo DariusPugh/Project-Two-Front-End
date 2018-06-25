@@ -19,7 +19,7 @@ export class SidebarComponent extends React.Component<any, any> {
 
   public searchItemsByTitle = (e:any)=>{
     console.log(e);
-    console.log(this.props.input);  // SCX2000 Desk Chair
+    console.log(this.props.input); 
     const url = 'https://owdw8b3ri4.execute-api.us-east-2.amazonaws.com/dev/items/'+`${this.props.input.replace(/ /g, '+')}`
     console.log(url);
     axios.get(url)
@@ -72,9 +72,6 @@ export class SidebarComponent extends React.Component<any, any> {
             </NavItem>
             <NavItem>
               <Link to="/create-item" className="unset-anchor nav-link">Create Item</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/display-item" className="unset-anchor nav-link">Display Item</Link>
             </NavItem>
             <NavItem>
               <Link to="/categories" className="unset-anchor nav-link">Categories</Link>

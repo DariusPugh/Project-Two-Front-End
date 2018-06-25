@@ -25,10 +25,10 @@ class App extends React.Component {
           <div>
           <Container id="appContainer">
             <Row>
-            <Col xs="3">
+            <Col xs="3" lg="2" id="sidebarColumn">
               <Route component={SidebarContainer}/> 
             </Col>
-            <Col>
+            <Col id="switch-block">
                 <Switch>
                   <Route path="/test" component={TestComponent} />
                   <Route path="/test2" component={TestComponent2} />

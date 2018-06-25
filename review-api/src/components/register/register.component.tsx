@@ -24,9 +24,6 @@ export class RegisterComponent extends React.Component<any, any> {
       }
     
     
-      
-    
-    
     
     public render() {
         return (
