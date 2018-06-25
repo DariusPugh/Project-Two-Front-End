@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js'
+import * as netService from '../../net-service/netService'
 // import { reviewApiAxios } from "../../interceptors/review-interceptor";
 
 export class RegisterComponent extends React.Component<any, any> {
@@ -24,6 +25,9 @@ export class RegisterComponent extends React.Component<any, any> {
         this.props.registerEmail(email);
       }
 
+/******************************************************************************
+ * Submit to cognito
+ ******************************************************************************/
     public submit = (e: any, username: string, password:string) => {
         e.preventDefault();
         const poolData = { 
@@ -59,35 +63,32 @@ export class RegisterComponent extends React.Component<any, any> {
             console.log('user name is ' + cognitoUser.getUsername());
         });
     }   
-    //     const {regusername, regpassword, email } = this.props; // destructuring
-    //     // const dynamoUpdate = (username, password, role) => {
-    //         reviewApiAxios.post('/user/' )
-    //         body: JSON.stringify({ regusername, regpassword, email }),
-    //         .then( resp => {
-                
-    //             console.log(resp.data);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         });
-    //     //   }
-    // }     
     
-    // reviewApiAxios.post('/user/username', {
-    //     username: this.props.regUsername,
-    //     email: this.props.email,
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    
-    
+    /***************************************************************
+     * Submit to DynamoDB
+     ***************************************************************/
+    public submit2 = (e: any) => {
+
+        const user = {
+            banTimeout: 0,
+            banned: 0,
+            email: this.props.email, 
+            role: 'user',
+            username: this.props.regusername
+          };
+        console.log(user)
+        netService.postData('/user',  user)
+        .then((resp) => {
+            console.log(resp);
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
     public render() {
         return (
-            <form>
+            <form onSubmit={this.submit2}>
                 <form onSubmit={(e:any)=>{this.submit(e, this.props.regusername, this.props.regpassword)}}>
                 <div className="form-row">
                 <div className="form-group col-md-6">
@@ -107,7 +108,7 @@ export class RegisterComponent extends React.Component<any, any> {
                     <input 
                         value = {this.props.password}
                         onChange = {this.registerPassword}
-                        type="text" 
+                        type="password" 
                         className="form-control" 
                         id="input-password" 
                         placeholder="Password"/>
