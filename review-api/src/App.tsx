@@ -6,7 +6,7 @@ import './App.css';
 import { store } from './Store';
 import { CreateItemComponent } from './components/create-item/create-item.component';
 import { DisplayItemsContainer } from './components/display-items-name/display-item.container';
-import { RegisterComponent } from './components/register/register.component';
+import { RegisterContainer } from './components/register/register.container';
 import { SidebarContainer } from './components/sidebar/sidebar.cotainer';
 import { SignInContainer } from './components/sign-in/sign-in.container';
 import { TestComponent } from './components/test/test.component';
@@ -33,7 +33,7 @@ class App extends React.Component {
                   <Route path="/test" component={TestComponent} />
                   <Route path="/test2" component={TestComponent2} />
                   <Route path="/sign-in" component={SignInContainer} />
-                  <Route path="/register" component={RegisterComponent} />
+                  <Route path="/register" component={RegisterContainer} />
                   <Route path="/create-item" component={CreateItemComponent} />
                   <Route path="/categories/:category/:item/review" component={ComposeContainer} />
                   <Route path="/display-item" component={DisplayItemsContainer} />

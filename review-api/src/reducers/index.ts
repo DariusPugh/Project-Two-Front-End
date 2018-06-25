@@ -6,6 +6,7 @@ import { cognitoUserReducer } from "./cognito-user.reducer";
 import { itemReducer } from "./item.reducer";
 import { reviewReducer } from "./review.reducer";
 import { signInReducer } from "./sign-in.reducer";
+import { registerReducer } from "./register.reducer";
 
 
 export interface ICognitoUser { 
@@ -31,6 +32,7 @@ export interface ISidebar {
 }
 
 export interface IState {
+
     category: ICategoryState,
     item: IItemState,
     review: IReviewState,
@@ -38,6 +40,7 @@ export interface IState {
     signIn: ISignIn,
     cognitoUser: ICognitoUser
 }
+
 
 export interface ICategoryState {
     category: string,
@@ -51,10 +54,26 @@ export interface IReviewState {
     rID: number,
 }
 
+export interface IRegister {
+    error: string,
+    email: string,
+    regpassword: string,
+    regusername: string
+}
+
+export interface IState{
+    category: ICategoryState,
+    item: IItemState,
+    register: IRegister,
+    review: IReviewState,
+    sidebar: ISidebar,
+}
+
 export const state = combineReducers<IState>({
     category: categoryReducer,
     cognitoUser: cognitoUserReducer,
     item: itemReducer,
+    register: registerReducer,
     review: reviewReducer,
     sidebar: sidebarReducer,
     signIn: signInReducer,
