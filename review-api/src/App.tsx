@@ -4,7 +4,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 import './App.css';
 import { store } from './Store';
-import { CreateItemComponent } from './components/create-item/create-item.component';
+import { CreateItemContainer } from './components/create-item/create-item.container';
 import { DisplayItemsContainer } from './components/display-items-name/display-item.container';
 import { RegisterContainer } from './components/register/register.container';
 import { SidebarContainer } from './components/sidebar/sidebar.cotainer';
@@ -16,6 +16,7 @@ import { ItemListContainer } from './components/item-list/items.container';
 import { ReviewListContainer } from './components/review-list/reviews.container';
 import { ReviewContainer } from './components/review/review.container';
 import { ComposeContainer } from './components/compose-review/compose.container';
+import { CreateCategoryContainer } from './components/create-category/category.container';
 
 class App extends React.Component {
   public render() {
@@ -34,7 +35,8 @@ class App extends React.Component {
                   <Route path="/test2" component={TestComponent2} />
                   <Route path="/sign-in" component={SignInContainer} />
                   <Route path="/register" component={RegisterContainer} />
-                  <Route path="/create-item" component={CreateItemComponent} />
+                  <Route path="/categories/create" component={CreateCategoryContainer}/>
+                  <Route path="/categories/:category/create" component={CreateItemContainer} />
                   <Route path="/categories/:category/:item/review" component={ComposeContainer} />
                   <Route path="/display-item" component={DisplayItemsContainer} />
                   <Route path="/categories/:category/:item/r/:rID" component={ReviewContainer} />

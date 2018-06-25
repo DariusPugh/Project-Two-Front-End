@@ -41,33 +41,27 @@ export class ComposeComponent extends React.Component<any, any> {
     }
 
     private submit = () => {
+        let cat:string;
+        let titl:string;
+        if (this.props.category.category && this.props.item.title) {
+            cat = this.props.category.category;
+            titl = this.props.item.title;
+        } else {
+            const splitPath = this.props.location.pathname.split('/');
+            cat = splitPath[splitPath.length-3];
+            titl = splitPath[splitPath.length-2];
+        }
         const review = {
             body: this.state.body,
+            category: cat,
             score: this.state.score,
-            username: /* get logged-in user from local storage */ 'Dynamo'
+            title: titl,
+            username: this.props.cognitoUser.user.getUsername(),
         }
 
         netService.postData('/review', review)
             .then((data) => {
-                
-                const rID = data.data;
-                let category:string;
-                let title:string;
-                if (this.props.category.category && this.props.item.title) {
-                    category = this.props.category.category;
-                    title = this.props.item.title;
-                } else {
-                    const splitPath = this.props.location.pathname.split('/');
-                    category = splitPath[splitPath.length-3];
-                    title = splitPath[splitPath.length-2];
-                    alert(`${title} ${category}`)
-                }
-                netService.postData(`/categories/${category}/${title}/review`, rID)
-                    .then((resp) => {
-                        this.props.history.push(`/categories/${category}/${title}`);
-                    }).catch((err) => {
-                        console.log(err);
-                    });
+                this.props.history.push(`/categories/${cat}/${titl}`);
             }).catch((err) => {
                 console.log(err);
             });
