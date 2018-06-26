@@ -64,7 +64,7 @@ export class ReviewComponent extends React.Component<any, any> {
     }
 
     private deleteCommentButton = (i:any) => {
-        if (this.state.role === 'admin') {
+        if (this.state.role === 'admin' && (this.state.review.comments[i].message !== "<message deleted>" || this.state.review.comments[i].username !== " ")) {
             return (
                 <button className="btn btn-default text-right" id={i} role="button" onClick={this.delComment} type="button">Delete Comment</button>
             );

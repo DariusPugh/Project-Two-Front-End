@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as netService from '../../net-service/netService'
-import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
+import { ListGroup } from 'reactstrap';
 // import { environment } from '../../environment';
 
 export class CategoryListComponent extends React.Component<any, any> {
