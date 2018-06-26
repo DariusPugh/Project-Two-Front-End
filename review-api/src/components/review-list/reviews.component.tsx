@@ -39,6 +39,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                     ...this.state,
                     item: {
                         avgScore: item.averageScore,
+                        category: item.category,
                         description: item.description,
                         title: item.title,
                     }
@@ -99,6 +100,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                 <div>{'Description:' + this.state.item.description}</div>
                 <div key={"item-container"} className="container">
                 {this.reviewThisButton()}
+                {this.editThisButton()}
                 {this.state.reviewList.map((review:any, i:any) => {
                     // style this as a link
                     return (
@@ -128,6 +130,19 @@ export class ReviewListComponent extends React.Component<any, any> {
             );
         } 
         return;
+    }
+
+    private editThisButton = () => {
+        if (this.state.role === 'admin') {
+            return (
+                <button className="btn btn-default text-right" role="button" onClick={this.editItem} type="button">Edit Item</button>
+            );
+        } 
+        return;
+    }
+
+    private editItem = () => {
+        this.props.history.push(`/categories/${this.state.item.category}/${this.state.item.title}/edit`)
     }
 
     private reviewThisButton = () => {
