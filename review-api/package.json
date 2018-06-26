@@ -4,7 +4,7 @@
   "private": true,
   "moduleResolution": "node",
   "scripts": {
-    "start": "react-scripts-ts start",
+    "start": "react-scripts-ts start --node-flags --max-old-space-size=512 --no-warnings",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
