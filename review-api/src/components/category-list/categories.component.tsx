@@ -38,8 +38,8 @@ export class CategoryListComponent extends React.Component<any, any> {
     public render() {
         return (
             <div id="category-list-wrapper">
-                {this.createCategoryButton()}
                 <ListGroup>
+                {this.createCategoryButton()}
                 {this.state.categoryList.map((category:any, i:any) => {
                     // style this as a link
                     return (
