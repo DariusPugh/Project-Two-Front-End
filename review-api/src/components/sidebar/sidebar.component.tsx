@@ -70,7 +70,6 @@ export class SidebarComponent extends React.Component<any, any> {
             <NavItem>
               <Link to="/categories" className="unset-anchor nav-link"><span><i className="fa fa-cubes" aria-hidden="true"></i></span> Categories</Link>
             </NavItem>
-            <div>test</div>
           </Nav>
         </Row>
         </Container>
