@@ -11,8 +11,7 @@ export function getData(url:string) {
 }
 
 export function postData(url:string, data:any) {
-    return axios.post(PROXY + url, {
-        body: data,
+    return axios.post(PROXY + url, data, {
         headers: {
             Authorization: localStorage.getItem('token')
         },

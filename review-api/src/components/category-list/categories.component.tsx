@@ -8,6 +8,7 @@ export class CategoryListComponent extends React.Component<any, any> {
         super(props);
         this.state = {
             categoryList: new Array(),
+            role: ''
         }
     }
 
@@ -21,6 +22,17 @@ export class CategoryListComponent extends React.Component<any, any> {
             }).catch((err) => {
                 console.log(err);
             });
+        if (this.props.cognitoUser.user) {
+            netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
+                .then((data) => {
+                    this.setState({
+                        ...this.state,
+                        role: data.data.role,
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
+        }
     }
 
     public render() {
@@ -37,9 +49,23 @@ export class CategoryListComponent extends React.Component<any, any> {
                 </ListGroup>
             </div>
         );
+        {this.createCategoryButton()}
     }
 
-    public selectCategory = (e:any) => {
+    private createCategoryButton = () => {
+        if (this.state.role === 'admin') {
+            return (
+                <button className="btn btn-default text-right" role="button" onClick={this.create} type="button">New Category</button>
+            );
+        }
+        return;
+    }
+
+    private create = () => {
+        this.props.history.push('/categories/create');
+    }
+
+    private selectCategory = (e:any) => {
         const cat = e.target.id;
         this.props.updateCategory(cat);
         this.props.history.push(`/categories/${cat}`);

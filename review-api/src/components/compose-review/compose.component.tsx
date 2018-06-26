@@ -47,12 +47,26 @@ export class ComposeComponent extends React.Component<any, any> {
     }
 
     private submit = () => {
+        let cat:string;
+        let titl:string;
+        if (this.props.category.category && this.props.item.title) {
+            cat = this.props.category.category;
+            titl = this.props.item.title;
+        } else {
+            const splitPath = this.props.location.pathname.split('/');
+            cat = splitPath[splitPath.length-3];
+            titl = splitPath[splitPath.length-2];
+        }
         const review = {
             body: this.state.body,
-            category:this.props.category.category,
+            // category:this.props.category.category,
+            // score: this.state.score,
+            // title: this.props.item.title,
+            // username: /* get logged-in user from local storage */ 'Dynamo'
+            category: cat,
             score: this.state.score,
-            title: this.props.item.title,
-            username: /* get logged-in user from local storage */ 'Dynamo'
+            title: titl,
+            username: this.props.cognitoUser.user.getUsername(),
         }
 
         netService.postData('/review', review)
