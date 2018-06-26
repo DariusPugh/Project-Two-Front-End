@@ -41,11 +41,23 @@ export class CategoryListComponent extends React.Component<any, any> {
                 {this.state.categoryList.map((category:any, i:any) => {
                     // style this as a link
                     return (
-                        <div key={i} className="link" onClick={this.selectCategory} id={category.category}>{category.category}</div>
+                        <div key={i}>
+                        <div className="link" onClick={this.selectCategory} id={category.category}>{category.category}</div>
+                        {this.deleteCategoryButton(i)}
+                        </div>
                     );
                 })}
             </div>
         );
+    }
+
+    private deleteCategoryButton = (i:string) => {
+        if (this.state.role === 'admin') {
+            return (
+                <button className="btn btn-default text-right" id={i} role="button" onClick={this.delCategory} type="button">Delete Category</button>
+            );
+        }
+        return;
     }
 
     private createCategoryButton = () => {
@@ -59,6 +71,16 @@ export class CategoryListComponent extends React.Component<any, any> {
 
     private create = () => {
         this.props.history.push('/categories/create');
+    }
+
+    private delCategory = (e:any) => {
+        const cat = this.state.categoryList[parseInt(e.target.id, 10)];
+        netService.delData(`/categories/${cat.category}`)
+            .then((data) => {
+                this.componentDidMount();
+            }).catch((err) => {
+                console.log(err);
+            });
     }
 
     private selectCategory = (e:any) => {
