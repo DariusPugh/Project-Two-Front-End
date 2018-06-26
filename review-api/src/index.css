@@ -1,15 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 body {
+  background-image:url('https://images.pexels.com/photos/417054/pexels-photo-417054.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
 }
 
 a {
   color: white;
 }
 
+hr{
+  width: 100%;
+}
+img {
+  display: block;
+  max-width:220px;
+  max-height:85px;
+  width: auto;
+  height: auto;
+}
+
+.btn-dark {
+  color: #fff;
+  background-color: #000;
+  border-color: #343a40;
+}
+
 .container {
   max-width: 100%;
+}
+
+.list-group-item-dark {
+  color: #f8f9fa;
+  background-color: #212529;
+}
+
+.list-group-item {
+  border: 1px solid #4d555dc4;
+}
+
+.sign-in-wrapper{
+  margin-right: 30%;
+  margin-left: 30%;
+  margin-top: 10%;
+  background: #4264E8;
+
 }
 
 #sidebar{
@@ -17,13 +55,13 @@ a {
   min-height: 100vh;
 }
 
-hr{
-  width: 100%;
-}
-
 #appContainer{
   margin-left: 0;
   padding-left: 0;
+}
+
+#category-list-wrapper{
+  font-size: 22px;
 }
 
 #error-message {

@@ -50,31 +50,25 @@ export class SidebarComponent extends React.Component<any, any> {
                 <InputGroupAddon addonType="append">
                   <Button color="secondary"
                   onClick = {this.searchItemsByTitle}
-                  >i</Button>
+                  ><i className="fa fa-search" aria-hidden="true"></i></Button>
                 </InputGroupAddon>
               </InputGroup>
             </Col>
           </Row>
          
-        <Row className="justify-content-center">
+        <Row>
           <Nav vertical={true}>
             <NavItem>
-              <Link to="/test" className="unset-anchor nav-link">Test</Link>
+              <Link to="/sign-in" className="unset-anchor nav-link"><span><i className="fa fa-sign-in" aria-hidden="true"></i></span> Sign In</Link>
             </NavItem>
             <NavItem>
-              <Link to="/test2" className="unset-anchor nav-link">Test2</Link>
+              <Link to="/register" className="unset-anchor nav-link"><span><i className="fa fa-pencil-square-o" aria-hidden="true"></i></span> Register</Link>
             </NavItem>
             <NavItem>
-              <Link to="/sign-in" className="unset-anchor nav-link">Sign In</Link>
+              <Link to="/create-item" className="unset-anchor nav-link"><span><i className="fa fa-plus-square" aria-hidden="true"></i></span> Create Item</Link>
             </NavItem>
             <NavItem>
-              <Link to="/register" className="unset-anchor nav-link">Register</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/create-item" className="unset-anchor nav-link">Create Item</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/categories" className="unset-anchor nav-link">Categories</Link>
+              <Link to="/categories" className="unset-anchor nav-link"><span><i className="fa fa-cubes" aria-hidden="true"></i></span> Categories</Link>
             </NavItem>
           </Nav>
         </Row>

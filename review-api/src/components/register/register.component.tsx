@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { Container, Row, Col} from 'reactstrap';
 
 export class RegisterComponent extends React.Component<any, any> {
 
@@ -27,47 +27,53 @@ export class RegisterComponent extends React.Component<any, any> {
     
     public render() {
         return (
-            <form>
-                <form /*Submit Here*/>
-                <div className="form-row">
-                <div className="form-group col-md-6">
-                    <label htmlFor="input-title">Username</label>
-                    <input 
-                        value = {this.props.title}
-                        onChange = {this.updateTitle}
-                        type="text" 
-                        className="form-control" 
-                        id="input-username" 
-                        placeholder="Username"/>
-                </div>
-                </div>
-                <div className="form-row">
-                <div className="form-group col-md-6">
-                    <label htmlFor="input-amount">Password</label>
-                    <input 
-                        value = {this.props.amount}
-                        onChange = {this.updateAmount}
-                        type="number" 
-                        className="form-control" 
-                        id="input-password" 
-                        placeholder="Password"/>
-                </div>
-                </div>
-                <div className="form-row">
-                <div className="form-group col-md-6">
-                    <label htmlFor="input-description">Email</label>
-                    <input 
-                        value = {this.props.description}
-                        onChange = {this.updateDescription}
-                        type="text" 
-                        className="form-control" 
-                        id="input-email" 
-                        placeholder="description"/>
-                </div>
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
-            </form>
+            <Container>
+                <Row className="justify-content-center">
+                    <Col md={{ size: 8, offset: 2 }}>
+                        <form>
+                            <form /*Submit Here*/>
+                            <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="input-title">Username</label>
+                                <input 
+                                    value = {this.props.title}
+                                    onChange = {this.updateTitle}
+                                    type="text" 
+                                    className="form-control" 
+                                    id="input-username" 
+                                    placeholder="Username"/>
+                            </div>
+                            </div>
+                            <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="input-amount">Password</label>
+                                <input 
+                                    value = {this.props.amount}
+                                    onChange = {this.updateAmount}
+                                    type="number" 
+                                    className="form-control" 
+                                    id="input-password" 
+                                    placeholder="Password"/>
+                            </div>
+                            </div>
+                            <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="input-description">Email</label>
+                                <input 
+                                    value = {this.props.description}
+                                    onChange = {this.updateDescription}
+                                    type="text" 
+                                    className="form-control" 
+                                    id="input-email" 
+                                    placeholder="description"/>
+                            </div>
+                            </div>
+                            <button type="submit" className="btn btn-dark">Submit</button>
+                            </form>
+                        </form>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
