@@ -77,9 +77,7 @@ export class SignInComponent extends React.Component<any, any> {
       },
       onFailure: this.onFailure,
       onSuccess: this.onSuccess,
-
-
-    });
+   });
   }
 
   public submitNewPassword = (e: any) => {
@@ -114,6 +112,7 @@ export class SignInComponent extends React.Component<any, any> {
 
     }
   }
+
 
   public render() {
     return (
