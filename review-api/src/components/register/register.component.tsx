@@ -89,7 +89,9 @@ export class RegisterComponent extends React.Component<any, any> {
     }
 
     public render() {
+        
         return (
+        <div id="register-component-wrapper">
         <Container>
             <Row className="justify-content-center">
                 <Col md={{ size: 8, offset: 2 }}>
@@ -137,6 +139,8 @@ export class RegisterComponent extends React.Component<any, any> {
                 </Col>
             </Row>
         </Container>
+        </div>
         );
+        
     }
 }

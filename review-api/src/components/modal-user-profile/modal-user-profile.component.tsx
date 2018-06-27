@@ -51,14 +51,22 @@ export class ModalComponent extends React.Component <any,any>{
     this.setState({ backdrop: value });
   }
 
-  public navigateToReview= (e: any, category:string, item:string)=>{
+  public navigateToReview= (e: any, category:string, item:string,reviewID:any)=>{
       console.log({category,item});
-      this.props.history.push(`/categories/${category}/${item}/review`);
+      this.setState({
+        modal: !this.state.modal,
+    });
+    console.log(this.props.history)
+    this.props.updateCategory(category);
+    this.props.updateTitle(item);
+    // this.props.history.push(`/categories/${category}/${item}`);
+    this.forceUpdate()
+    //   this.props.history.push(`/categories/${category}/${item}/r/${reviewID}`);
   }
 
   public render() {
     return (
-      <div>
+      <div id="modal-wrapper">
         <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
@@ -75,7 +83,7 @@ export class ModalComponent extends React.Component <any,any>{
             <div>
                 {this.state.reviews.map((item:any, i:number)=>{
                     return(
-                    <div key={i} onClick={(e:any)=>{console.log(item)}}>{item.body}</div>
+                    <div key={i} onClick={(e:any)=>{this.navigateToReview(e,item.category,item.title,item.reviewID)}}>{item.body}</div>
                     )
                 })}
             </div>
