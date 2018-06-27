@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as awsCognito from 'amazon-cognito-identity-js';
+import { Alert } from 'reactstrap';
 
 export class SignInComponent extends React.Component<any, any> {
 
@@ -35,7 +36,7 @@ export class SignInComponent extends React.Component<any, any> {
     // console.log(idtok.payload['cognito:groups']) //payload has the user info on it
 
     // navigate pages now that we have successfully logged in
-    this.props.history.push('/test');
+    this.props.history.push('/home');
     this.props.resetState();
   }
 
@@ -116,63 +117,64 @@ export class SignInComponent extends React.Component<any, any> {
 
   public render() {
     return (
-      <div id="sign-in-component-wrapper-image">
-        <div className="sign-in-wrapper">
-            {!this.props.firstSignIn.isFirstSignIn &&
-              <form className="form-signin" onSubmit={this.submit}>
-                <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
-                <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-                <label htmlFor="inputUsername" className="sr-only">Username</label>
-                <input value={this.props.username}
-                  onChange={this.updateUsername}
-                  type="text" id="inputUsername"
-                  className="form-control"
-                  placeholder="Username"
-                  required />
-                <label htmlFor="inputPassword" className="sr-only">Password</label>
-                <input value={this.props.password}
-                  onChange={this.updatePassword}
-                  type="password"
-                  id="inputPassword"
-                  className="form-control"
-                  placeholder="Password"
-                  required />
-                {this.props.errorMessage !== '' &&
-                  <div id="error-message">
-                    {this.props.errorMessage}
-                  </div>
-                }
-                <div className="checkbox mb-3">
-                  <label>
-                    <input type="checkbox" value="remember-me" /> Remember me
-              </label>
+      <div className="sign-in-wrapper">
+          {!this.props.firstSignIn.isFirstSignIn &&
+            <form className="form-signin" onSubmit={this.submit}>
+            <Alert color="primary">
+        This is a primary alert — check it out!
+      </Alert>
+              <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
+              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <label htmlFor="inputUsername" className="sr-only">Username</label>
+              <input value={this.props.username}
+                onChange={this.updateUsername}
+                type="text" id="inputUsername"
+                className="form-control"
+                placeholder="Username"
+                required />
+              <label htmlFor="inputPassword" className="sr-only">Password</label>
+              <input value={this.props.password}
+                onChange={this.updatePassword}
+                type="password"
+                id="inputPassword"
+                className="form-control"
+                placeholder="Password"
+                required />
+              {this.props.errorMessage !== '' &&
+                <div id="error-message">
+                  {this.props.errorMessage}
                 </div>
-                <button className="btn btn-lg btn-dark btn-block" type="submit">Sign in</button>
-                <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-              </form>
-            }
-            {this.props.firstSignIn.isFirstSignIn &&
-              <form className="form-signin" onSubmit={this.submitNewPassword}>
-                <h1 className="h3 mb-3 font-weight-normal">Choose a new password.</h1>
-                <label htmlFor="inputNewPassword" className="sr-only">New Password</label>
-                <input value={this.props.firstSignIn.password}
-                  onChange={this.updateNewPassword}
-                  type="password" id="inputNewPassword"
-                  className="form-control"
-                  placeholder="New Password"
-                  required />
-                <label htmlFor="inputConfimPassword" className="sr-only">Confirm Password</label>
-                <input value={this.props.firstSignIn.confirmationPassword}
-                  onChange={this.updateConfirmationPassword}
-                  type="password"
-                  id="inputConfirmPassword"
-                  className="form-control"
-                  placeholder="Confirm Password"
-                  required />
-                <button className="btn btn-lg btn-dark btn-block" type="submit">Update</button>
-              </form>
-            }
-        </div>
+              }
+              <div className="checkbox mb-3">
+                <label>
+                  <input type="checkbox" value="remember-me" /> Remember me
+            </label>
+              </div>
+              <button className="btn btn-lg btn-dark btn-block" type="submit">Sign in</button>
+              <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+            </form>
+          }
+          {this.props.firstSignIn.isFirstSignIn &&
+            <form className="form-signin" onSubmit={this.submitNewPassword}>
+              <h1 className="h3 mb-3 font-weight-normal">Choose a new password.</h1>
+              <label htmlFor="inputNewPassword" className="sr-only">New Password</label>
+              <input value={this.props.firstSignIn.password}
+                onChange={this.updateNewPassword}
+                type="password" id="inputNewPassword"
+                className="form-control"
+                placeholder="New Password"
+                required />
+              <label htmlFor="inputConfimPassword" className="sr-only">Confirm Password</label>
+              <input value={this.props.firstSignIn.confirmationPassword}
+                onChange={this.updateConfirmationPassword}
+                type="password"
+                id="inputConfirmPassword"
+                className="form-control"
+                placeholder="Confirm Password"
+                required />
+              <button className="btn btn-lg btn-dark btn-block" type="submit">Update</button>
+            </form>
+          }
       </div>
     );
   }

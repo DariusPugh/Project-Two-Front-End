@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as netService from '../../net-service/netService'
-import { ListGroup , ListGroupItem, Badge} from 'reactstrap';
+import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
+
 // import { environment } from '../../environment';
 
 export class CategoryListComponent extends React.Component<any, any> {
@@ -39,6 +40,7 @@ export class CategoryListComponent extends React.Component<any, any> {
         return (
             <div id="category-list-wrapper">
                 <ListGroup>
+
                 {this.createCategoryButton()}
                 {this.state.categoryList.map((category:any, i:any) => {
                     // style this as a link
@@ -86,6 +88,7 @@ export class CategoryListComponent extends React.Component<any, any> {
             }).catch((err) => {
                 console.log(err);
             });
+
     }
 
     private selectCategory = (e:any) => {
