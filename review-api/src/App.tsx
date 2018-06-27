@@ -9,14 +9,14 @@ import { DisplayItemsContainer } from './components/display-items-name/display-i
 import { RegisterContainer } from './components/register/register.container';
 import { SidebarContainer } from './components/sidebar/sidebar.cotainer';
 import { SignInContainer } from './components/sign-in/sign-in.container';
-import { TestComponent } from './components/test/test.component';
-import { TestComponent2 } from './components/test/test2.component';
+// import { HomeComponent } from './components/home/home.component';
 import { CategoryListContainer } from './components/category-list/categories.container';
 import { ItemListContainer } from './components/item-list/items.container';
 import { ReviewListContainer } from './components/review-list/reviews.container';
 import { ReviewContainer } from './components/review/review.container';
 import { ComposeContainer } from './components/compose-review/compose.container';
 import { CreateCategoryContainer } from './components/create-category/category.container';
+
 import { EditItemContainer } from './components/edit-item/edit-item.container';
 
 class App extends React.Component {
@@ -32,13 +32,14 @@ class App extends React.Component {
             </Col>
             <Col id="switch-block">
                 <Switch>
-                  <Route path="/test" component={TestComponent} />
-                  <Route path="/test2" component={TestComponent2} />
+                  {/* <Route path="/home" component={HomeComponent} /> */}
                   <Route path="/sign-in" component={SignInContainer} />
                   <Route path="/register" component={RegisterContainer} />
                   <Route path="/categories/create" component={CreateCategoryContainer}/>
                   <Route path="/categories/:category/create" component={CreateItemContainer} />
+
                   <Route path="/categories/:category/:item/edit" component={EditItemContainer} />
+
                   <Route path="/categories/:category/:item/review" component={ComposeContainer} />
                   <Route path="/display-item" component={DisplayItemsContainer} />
                   <Route path="/categories/:category/:item/r/:rID" component={ReviewContainer} />

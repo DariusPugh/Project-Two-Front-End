@@ -17,6 +17,66 @@ export class ReviewListComponent extends React.Component<any, any> {
         }
     }
 
+    public componentDidUpdate(prevProps:any, prevState:any) {
+            // only update chart if the data has changed
+        if (prevProps.category !== this.props.category || prevProps.title !== this.props.title) {
+        
+        let category;
+        let title;
+        if (this.props.category.category && this.props.item.title) {
+            category = this.props.category.category;
+            title = this.props.item.title;
+        } else {
+            const splitPath = this.props.location.pathname.split('/');
+            category = splitPath[splitPath.length-2];
+            title = splitPath[splitPath.length-1];
+        }
+        netService.getData(`/categories/${category}/${title}`)
+            .then((data) => {
+                const item = data.data[0];
+
+                const reviews = item.reviews;
+                const reviewDetails = new Array();
+                this.setState({
+                    ...this.state,
+                    item: {
+                        avgScore: item.averageScore,
+                        description: item.description,
+                        title: item.title,
+                    }
+                });
+
+                for (let i = 0; i < reviews.length; i++) {
+                    netService.getData(`/review/${reviews[i]}`)
+                    .then((resp) => {
+                        const review = resp.data[0];
+                        let short = review.body;
+                        if (short.length > 25) {
+                            short = `${short.substring(0,24)}...`;
+                        }
+                        reviewDetails.push({
+                            commentCount: review.comments.length,
+                            reviewID: review.reviewID,
+                            score: review.score,
+                            summary: short,
+                            username: review.username,
+                        });
+                        this.setState({
+                            ...this.state,
+                            reviewList: reviewDetails,
+                        });
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }     
+            }).catch((err) => {
+                console.log(err);
+            });
+            
+        }
+      }
+
+
     public componentDidMount() {
         // call server to get the component list
         let cat;
@@ -109,7 +169,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                                     {this.deleteReviewButton(i)}
                                 </div>
                                 <div className="col">
-                                 <ModalComponent buttonLabel="View Profile" usernameModal ={this.state.reviewList[i].username} history={this.props.history}/>
+                                 <ModalComponent buttonLabel="View Profile" usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
                                 </div>
                                 <hr/>
                             </div>
