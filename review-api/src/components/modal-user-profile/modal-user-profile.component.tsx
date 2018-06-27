@@ -78,10 +78,11 @@ export class ModalComponent extends React.Component <any,any>{
             <div>
                 {'banned: '+this.state.banned}
             </div>
+            <p/>
             <div>
                 {this.state.reviews.map((item:any, i:number)=>{
                     return(
-                    <div key={i} onClick={(e:any)=>{this.navigateToReview(e,item.category,item.title,item.reviewID)}}>{item.body}</div>
+                    <div key={i} onClick={(e:any)=>{this.navigateToReview(e,item.category,item.title,item.reviewID)}}>{`${item.category}: ${item.title} Score: ${item.score}`}</div>
                     )
                 })}
             </div>

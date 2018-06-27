@@ -23,8 +23,10 @@ export class ReviewComponent extends React.Component<any, any> {
         netService.getData(`/review/${rid}`)
                 .then((data) => {
                     this.setState({
+                        ...this.state,
                         review: data.data[0],
                     });
+                    console.log(this.state.review);
                 }).catch((err) => {
                     console.log(err);
                 });
