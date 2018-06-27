@@ -59,8 +59,8 @@ export class ItemListComponent extends React.Component<any, any> {
 
     return (
         <div>
-            {this.newItemButton()}
             <ListGroup>
+            {this.newItemButton()}
             {this.state.itemList.map((item:any,i:number) =>{
                 return(
                 <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark">
