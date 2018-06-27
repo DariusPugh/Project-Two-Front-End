@@ -25,3 +25,28 @@ export function delData(url:string) {
         }
     });
 }
+
+export function delBody(url:string, body:any) {
+    return axios.delete(PROXY + url, {
+        data: body,
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    });
+}
+
+export function putData(url:string, data:any) {
+    return axios.put(PROXY + url, data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    });
+}
+
+export function patchData(url:string, data:any) {
+    return axios.patch(PROXY + url, data, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    });
+}

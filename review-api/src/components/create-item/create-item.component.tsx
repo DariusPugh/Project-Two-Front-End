@@ -37,29 +37,17 @@ export class CreateItemComponent extends React.Component<any, any> {
                             <form onSubmit={this.submit}>
                             <div className="form-row">
                             <div className="form-group col-md-6">
-                                <label htmlFor="input-title">Create a Category</label>
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="input-title" 
-                                    placeholder="Title"
-                                    onChange = {this.inputChange}
-                                />
+                                <label htmlFor="input-title">Item Name</label>
+                                <input name="title" type="text" className="form-control" id="title" aria-describedby="titlehelp" placeholder="Name" onChange={this.inputChange} value={this.state.title}/>
                             </div>
                             </div>
                             <div className="form-row">
                             <div className="form-group col-md-6">
-                                <label htmlFor="input-amount">Create Item</label>
-                                <input 
-                                    type="number" 
-                                    className="form-control" 
-                                    id="input-amount" 
-                                    placeholder="Amount"
-                                    onChange = {this.inputChange}
-                                />
+                                <label htmlFor="input-amount">Description</label>
+                                <textarea name="description" className="form-control" rows={3} id="description" placeholder="Item description" onChange={this.inputChange} value={this.state.description}/>
                             </div>
                             </div>
-                            <button type="submit" className="btn btn-dark">Submit</button>
+                            <button type="button" onClick={this.submit} className="btn btn-dark">Submit</button>
                             </form>
                         </form>
                      </Col>

@@ -9,6 +9,7 @@ export class ReviewComponent extends React.Component<any, any> {
             review: {
                 comments: [],
             },
+            role: '',
         }
     }
 
@@ -28,6 +29,17 @@ export class ReviewComponent extends React.Component<any, any> {
                 }).catch((err) => {
                     console.log(err);
                 });
+        if (this.props.cognitoUser.user) {
+            netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
+                .then((data) => {
+                    this.setState({
+                        ...this.state,
+                        role: data.data.role,
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
+        }
     }
 
     public render() {
@@ -41,6 +53,7 @@ export class ReviewComponent extends React.Component<any, any> {
                         <div key={i}>
                             <div>{item.username}</div>
                             <div>{item.message}</div>
+                            {this.deleteCommentButton(i)}
                         </div>
                     );
                 })}
@@ -48,6 +61,24 @@ export class ReviewComponent extends React.Component<any, any> {
             
             </div>
         );
+    }
+
+    private deleteCommentButton = (i:any) => {
+        if (this.state.role === 'admin' && (this.state.review.comments[i].message !== "<message deleted>" || this.state.review.comments[i].username !== " ")) {
+            return (
+                <button className="btn btn-default text-right" id={i} role="button" onClick={this.delComment} type="button">Delete Comment</button>
+            );
+        }
+        return;
+    }
+
+    private delComment = (e:any) => {
+        netService.putData(`/review/${this.state.review.reviewID}`, {index: parseInt(e.target.id, 10)})
+            .then((data) => {
+                this.componentDidMount();
+            }).catch((err) => {
+                console.log(err);
+            })
     }
 
     private commentBox = () => {

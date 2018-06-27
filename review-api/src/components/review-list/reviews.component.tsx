@@ -13,6 +13,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                 title: '',
             },
             reviewList: new Array(),
+            userReview: ''
         }
     }
 
@@ -77,17 +78,17 @@ export class ReviewListComponent extends React.Component<any, any> {
 
     public componentDidMount() {
         // call server to get the component list
-        let category;
-        let title;
+        let cat;
+        let titl;
         if (this.props.category.category && this.props.item.title) {
-            category = this.props.category.category;
-            title = this.props.item.title;
+            cat = this.props.category.category;
+            titl = this.props.item.title;
         } else {
             const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-2];
-            title = splitPath[splitPath.length-1];
+            cat = splitPath[splitPath.length-2];
+            titl = splitPath[splitPath.length-1];
         }
-        netService.getData(`/categories/${category}/${title}`)
+        netService.getData(`/categories/${cat}/${titl}`)
             .then((data) => {
                 const item = data.data[0];
 
@@ -97,6 +98,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                     ...this.state,
                     item: {
                         avgScore: item.averageScore,
+                        category: item.category,
                         description: item.description,
                         title: item.title,
                     }
@@ -128,6 +130,18 @@ export class ReviewListComponent extends React.Component<any, any> {
             }).catch((err) => {
                 console.log(err);
             });
+            if (this.props.cognitoUser.user) {
+                netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
+                    .then((data) => {
+                        this.setState({
+                            ...this.state,
+                            role: data.data.role,
+                        });
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+            }
+            
     }
 
     public modalHandler= ()=>{
@@ -145,6 +159,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                 <div>{'Description:' + this.state.item.description}</div>
                 <div key={"item-container"} className="container">
                 {this.reviewThisButton()}
+                {this.editThisButton()}
                 {this.state.reviewList.map((review:any, i:any) => {
                     // style this as a link
                     return (
@@ -152,6 +167,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                                 <hr/>
                                 <div className="col">
                                     <div key={i} className="link" onClick={this.updateReview} id={review.reviewID}>{this.state.reviewList[i].username}</div>
+                                    {this.deleteReviewButton(i)}
                                 </div>
                                 <div className="col">
                                  <ModalComponent buttonLabel="View Profile" usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
@@ -166,7 +182,27 @@ export class ReviewListComponent extends React.Component<any, any> {
         );
     }
 
+    private deleteReviewButton = (i:string) => {
+        if (this.state.role === 'admin') {
+            return (
+                <button className="btn btn-default text-right" id={i} role="button" onClick={this.delReview} type="button">Delete Review</button>
+            );
+        } 
+        return;
+    }
 
+    private editThisButton = () => {
+        if (this.state.role === 'admin') {
+            return (
+                <button className="btn btn-default text-right" role="button" onClick={this.editItem} type="button">Edit Item</button>
+            );
+        } 
+        return;
+    }
+
+    private editItem = () => {
+        this.props.history.push(`/categories/${this.state.item.category}/${this.state.item.title}/edit`)
+    }
 
     private reviewThisButton = () => {
        if (this.props.cognitoUser.user) {
@@ -175,6 +211,29 @@ export class ReviewListComponent extends React.Component<any, any> {
             );
         } 
         return;
+    }
+
+    private delReview =(e:any) => {
+        const i = parseInt(e.target.id, 10);
+        netService.delBody(`/review/${this.state.reviewList[i].reviewID}`, {
+            index: i
+        }).then((data) => {
+            // this.componentDidMount();
+            let category;
+            let title;
+            if (this.props.category.category && this.props.item.title) {
+                category = this.props.category.category;
+                title = this.props.item.title;
+            } else {
+                const splitPath = this.props.location.pathname.split('/');
+                category = splitPath[splitPath.length-2];
+                title = splitPath[splitPath.length-1];
+            }
+            this.props.history.push('/');
+            this.props.history.push(`/categories/${category}/${title}`);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     private toReview = () => {

@@ -4,6 +4,7 @@ import {Col, Container, Row} from 'reactstrap';
 import { Nav, NavItem} from 'reactstrap';
 import {Button,Input,InputGroup, InputGroupAddon} from 'reactstrap';
 import axios from 'axios';
+import { SignOutContainer } from '../sign-in/sign-out.container';
 
 
 export class SidebarComponent extends React.Component<any, any> {
@@ -73,6 +74,9 @@ export class SidebarComponent extends React.Component<any, any> {
           </Nav>
         </Row>
         </Container>
+        <div>
+        <SignOutContainer/>
+        </div>
       </div>
     );
   }
