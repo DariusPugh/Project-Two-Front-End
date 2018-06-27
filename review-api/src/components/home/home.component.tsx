@@ -5,43 +5,32 @@ import { Carousel } from '../carousel/carousel.component';
 // const carouselContainer = document.querySelector(".carousel-container");
 
 // Data for carousel
-const carouselSlidesData = [
+export const carouselSlidesData = [
   {
-    author: "Bane",
+    author: "From",
     content:
-      "Tomorrow, you will be released. If you are bored of brawling with thieves and want to achieve something there is a rare blue flower that grows on the eastern slopes. Pick one of these flowers. If you can carry it to the top of the mountain, you may find what you were looking for in the first place.",
-    source: "facebook"
+      "Welcome to IDC Reviews!! The place where you and literally review ANYTHING!! For returning members please click 'Sign In' on the left! For new users please consider registering! It will grant you access to posting on the website! To register, click 'Register' on the left. And verify your email!",
+    source: "Dev Team"
   }, {
-    author: "Ra's Al Ghul",
+    author: "News",
     content:
-      "You have learn to bury your guilt with anger. I will teach you to confront it and to face the truth.",
-    source: "Snapchat"
+      "There will be a $1,000,000 dollar on Feb 30, 2019! REGISTER FOR A CHANCE TO WIN!!",
+    source: "Giveaway"
   }, {
-    author: "Joker",
+    author: "News",
     content:
-      "Introduce a little anarchy, upset the established order and everything becomes chaos. I'm an agent of chaos. Oh, and you know the thing about chaos? It's fair.",
-    source: "facebook"
+      "Our Newest added Category is Pets!",
+    source: "Updates"
   }, {
-    author: "Bruce Wayne", 
+    author: "Inspiration",
     content:
-      "I can't do that as Bruce Wayne... as a man. I'm flesh and blood. I can be ignored, destroyed. But as a symbol, I can be incorruptible, I can be everlasting.",
-    source: "facebook"
+      "In the end, we only regret the chances we didn't take -Lewis Carroll",
+    source: "Quote"
   }, {
-    author: "Rachel Dawes",
+    author: "News",
     content:
-      "But it's not who you are underneath... it's what you do that defines you.",
-    source: "twitter"
-  }, {
-    author: "John Blake",
-    content:
-      "When their enemies were at the gates the Romans would suspend democracy and appoint one man to protect the city. It wasn't considered an honor, it was a public service.",
-    source: "Google+"
-  },
-  {
-    author: "Alfred Pennyworth",
-    content:
-      "Master Wayne, you've been gone a long time. You look very fashionable. Apart from the mud.",
-    source: "twitter"
+      "This is most certainly... the absolute greatest site... I have ever visited in my life. - Mark Zuckerburg",
+    source: "Review"
   }
 ];
 
@@ -54,8 +43,13 @@ export class HomeComponent extends React.Component<any, any> {
   public render() {
     return (
       <div>
-       <Carousel slides={carouselSlidesData} />
-      </div>
+          <div className="home-page-header">
+            <h1> WELCOME TO IDC REVIEWS! </h1>
+          </div>
+        <div className="row carousel-container-wrapper">
+          <Carousel slides={carouselSlidesData} />
+        </div>
+        </div>
     );
   }
 }
