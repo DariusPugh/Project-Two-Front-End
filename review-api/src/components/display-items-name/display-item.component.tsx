@@ -37,7 +37,7 @@ export class DisplayItemComponent extends React.Component<any, any> {
                 <div className="container-fluid" key={"container" + i}>
                   <div className="row no-pad">
                     <div className="col-2">
-                      <span><img src="https://images.pexels.com/photos/33537/cat-animal-cat-portrait-mackerel.jpg?auto=compress&cs=tinysrgb&h=350" alt=""/></span>
+                      <span><img src={this.getImage(i)} alt=""/></span>
                     </div>
                     <div className="col-sm-10">
                       <div id="display-list-title" className = "row" onClick={(e)=> this.navigateToItem(e,item)}>
@@ -62,4 +62,12 @@ export class DisplayItemComponent extends React.Component<any, any> {
       </div>
     );
   }
+
+  private getImage = (i:number) => {
+    if (this.props.sidebar.items[i].image) {
+        return this.props.sidebar.items[i].image;
+    }
+    return "https://screenshotlayer.com/images/assets/placeholder.png";
+  }
+
 }
