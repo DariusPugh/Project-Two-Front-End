@@ -50,20 +50,46 @@ export class ItemListComponent extends React.Component<any, any> {
                 {this.state.itemList.map((item:any, i:any) => {
                     // style this as a link
                     return (
-                        <div key={i} className="link" onClick={this.updateTitle} id={item.title}>{item.title}</div>
+                        <div key={i}>
+                            <div className="link" onClick={this.updateTitle} id={item.title}>{item.title}</div>
+                            {this.deleteItemButton(i)}
+                        </div>
                     );
                 })}
             </div>
         );
     }
 
-    private newItemButton = () => {
-        if (this.state.role) {
+    private deleteItemButton = (i:string) => {
+        if (this.state.role === 'admin') {
             return (
-                <button className="btn btn-default text-right" role="button" onClick={this.create} type="button">New Item</button>
+                <div>
+                <button className="btn btn-default text-right" id={i} role="button" onClick={this.delItem} type="button">Delete Item</button>
+                </div>
             );
         }
         return;
+    }
+
+    private newItemButton = () => {
+        if (this.state.role === 'admin') {
+            return (
+                <div>
+                <button className="btn btn-default text-right" role="button" onClick={this.create} type="button">New Item</button>
+                </div>
+            );
+        }
+        return;
+    }
+
+    private delItem = (e:any) => {
+        const item = this.state.itemList[parseInt(e.target.id, 10)];
+        netService.delData(`/categories/${item.category}/${item.title}`)
+            .then((data) => {
+                this.componentDidMount();
+            }).catch((err) => {
+                console.log(err);
+            })
     }
 
     private create = () => {

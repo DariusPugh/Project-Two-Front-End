@@ -59,6 +59,7 @@ export class SidebarComponent extends React.Component<any, any> {
          
         <Row>
           <Nav vertical={true}>
+
           <NavItem>
               <Link to="/home" className="unset-anchor nav-link"><span><i className="fa fa-home" aria-hidden="true"></i></span> Home</Link>
             </NavItem>
