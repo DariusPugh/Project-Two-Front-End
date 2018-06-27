@@ -19,8 +19,9 @@ export class ReviewListComponent extends React.Component<any, any> {
 
     public componentDidUpdate(prevProps:any, prevState:any) {
             // only update chart if the data has changed
-        if (prevProps.category !== this.props.category) {
-            let category;
+        if (prevProps.category !== this.props.category || prevProps.title !== this.props.title) {
+        
+        let category;
         let title;
         if (this.props.category.category && this.props.item.title) {
             category = this.props.category.category;
