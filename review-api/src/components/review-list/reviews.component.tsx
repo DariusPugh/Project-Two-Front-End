@@ -152,13 +152,6 @@ export class ReviewListComponent extends React.Component<any, any> {
         })
     }
 
-    public modalHandler= ()=>{
-        this.setState({
-            ... this.state,
-            openModal:true,
-        })
-    }
-
     public render() {
         return (
             <div>
