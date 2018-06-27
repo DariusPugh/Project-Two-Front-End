@@ -100,10 +100,31 @@ img {
   background-color: #800000;
 }
 
+#display-list-title{
+  cursor: pointer;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: #eff353
+}
+
+.categories-list-name-class{
+  cursor: pointer;
+}
+
 body.modal-open{
   background-color: #343a40;
 }
 
 .modal-content{
   background-color: #343a40;
+}
+
+
+.row.no-pad {
+  margin-right:0;
+  margin-left:0;
+}
+.row.no-pad > [class*='col-'] {
+  padding-right:0;
+  padding-left:0;
 }
