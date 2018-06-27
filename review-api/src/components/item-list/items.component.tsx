@@ -14,12 +14,9 @@ export class ItemListComponent extends React.Component<any, any> {
     public componentDidMount() {
         // call server to get the component list
         let category;
-        if (this.props.category.category) {
-            category = this.props.category.category;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-1];
-        }
+        const splitPath = this.props.location.pathname.split('/');
+        category = splitPath[splitPath.length-1];
+        this.props.updateCategory(category);
         netService.getData(`/categories/${category}`)
                 .then((data) => {
                     const items = data.data;
@@ -93,26 +90,12 @@ export class ItemListComponent extends React.Component<any, any> {
     }
 
     private create = () => {
-        let category;
-        if (this.props.category.category) {
-            category = this.props.category.category;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-1];
-        }
-        this.props.history.push(`/categories/${category}/create`);
+        this.props.history.push(`/categories/${this.props.category.category}/create`);
     }
 
     private updateTitle = (e:any) => {
         const title = e.target.id;
         this.props.updateTitle(title);
-        let category;
-        if (this.props.category.category) {
-            category = this.props.category.category;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-1];
-        }
-        this.props.history.push(`/categories/${category}/${title}`);
+        this.props.history.push(`/categories/${this.props.category.category}/${title}`);
     }
 }

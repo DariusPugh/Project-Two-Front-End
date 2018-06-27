@@ -15,12 +15,9 @@ export class ReviewComponent extends React.Component<any, any> {
 
     public componentDidMount() {
         let rid;
-        if (this.props.review.reviewID) {
-            rid = this.props.review.reviewID;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            rid = splitPath[splitPath.length-1];
-        }
+        const splitPath = this.props.location.pathname.split('/');
+        rid = splitPath[splitPath.length-1];
+        this.props.updateReviewID(rid);
         netService.getData(`/review/${rid}`)
                 .then((data) => {
                     this.setState({
@@ -98,18 +95,11 @@ export class ReviewComponent extends React.Component<any, any> {
 
     private submit = () => {
         if (this.state.comment) {
-            let rid;
-            if (this.props.review.reviewID) {
-                rid = this.props.review.reviewID;
-            } else {
-                const splitPath = this.props.location.pathname.split('/');
-                rid = splitPath[splitPath.length-1];
-            }
             const com = {
                 message: this.state.comment,
                 username: this.props.cognitoUser.user.getUsername(),
             }
-            netService.postData(`/review/${rid}`, com)
+            netService.postData(`/review/${this.props.review.rID}`, com)
                 .then((data) => {
                     const comments = this.state.review.comments;
                     comments.push(com);

@@ -21,14 +21,12 @@ export class ReviewListComponent extends React.Component<any, any> {
         // call server to get the component list
         let cat;
         let titl;
-        if (this.props.category.category && this.props.item.title) {
-            cat = this.props.category.category;
-            titl = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            cat = splitPath[splitPath.length-2];
-            titl = splitPath[splitPath.length-1];
-        }
+        const splitPath = this.props.location.pathname.split('/');
+        cat = splitPath[splitPath.length-2];
+        titl = splitPath[splitPath.length-1];
+
+        this.props.updateTitle(titl);
+        this.props.updateCategory(cat);
         netService.getData(`/categories/${cat}/${titl}`)
             .then((data) => {
                 const item = data.data[0];
@@ -159,53 +157,20 @@ export class ReviewListComponent extends React.Component<any, any> {
         netService.delBody(`/review/${this.state.reviewList[i].reviewID}`, {
             index: i
         }).then((data) => {
-            // this.componentDidMount();
-            let category;
-            let title;
-            if (this.props.category.category && this.props.item.title) {
-                category = this.props.category.category;
-                title = this.props.item.title;
-            } else {
-                const splitPath = this.props.location.pathname.split('/');
-                category = splitPath[splitPath.length-2];
-                title = splitPath[splitPath.length-1];
-            }
             this.props.history.push('/');
-            this.props.history.push(`/categories/${category}/${title}`);
+            this.props.history.push(`/categories/${this.props.category.category}/${this.props.item.title}`);
         }).catch((err) => {
             console.log(err);
         });
     }
 
     private toReview = () => {
-        let category;
-        let title;
-        if (this.props.category.category && this.props.item.title) {
-            category = this.props.category.category;
-            title = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-2];
-            title = splitPath[splitPath.length-1];
-        }
-        this.props.updateCategory(category);
-        this.props.updateTitle(title);
-        this.props.history.push(`/categories/${category}/${title}/review`);
+        this.props.history.push(`/categories/${this.props.category.category}/${this.props.item.title}/review`);
     }
 
     private updateReview = (e:any) => {
         const rid = e.target.id;
         this.props.updateReviewID(rid);
-        let category;
-        let title;
-        if (this.props.category.category && this.props.item.title) {
-            category = this.props.category.category;
-            title = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-2];
-            title = splitPath[splitPath.length-1];
-        }
-        this.props.history.push(`/categories/${category}/${title}/r/${rid}`);
+        this.props.history.push(`/categories/${this.props.category.category}/${this.props.item.title}/r/${rid}`);
     }
 }
