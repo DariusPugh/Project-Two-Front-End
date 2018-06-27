@@ -47,8 +47,14 @@ export class CategoryListComponent extends React.Component<any, any> {
                     return (
                         <div key={i}>
                         {/* <div className="link" onClick={this.selectCategory} id={category.category}>{category.category}</div> */}
-                        <ListGroupItem key={i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark" onClick={this.selectCategory} id={category.category}><span><img src={this.getCatImage(i)} alt=""/></span>{category.category}<Badge pill>{category.count}</Badge></ListGroupItem>
+                        <ListGroupItem key={i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark" onClick={this.selectCategory} id={category.category}>
+                        <span>
+                            <img src={this.getCatImage(i)} alt=""/>
+                        </span>{category.category}
+                        <Badge pill>{category.count}</Badge>
                         {this.deleteCategoryButton(i)}
+                        </ListGroupItem>
+                        
                         </div>
                     );
                 })}
@@ -68,7 +74,9 @@ export class CategoryListComponent extends React.Component<any, any> {
     private deleteCategoryButton = (i:string) => {
         if (this.state.role === 'admin') {
             return (
-                <button className="btn btn-default text-right" id={i} role="button" onClick={this.delCategory} type="button">Delete Category</button>
+                <button type="button" className="btn transparent-btn" aria-label="Left Align" id={i} onClick={this.delCategory}>
+                    <img className="del-icon" src='https://cdn1.iconfinder.com/data/icons/basic-ui-elements-color/700/010_trash-2-512.png'id={i}/>
+                </button>
             );
         }
         return;
@@ -88,6 +96,8 @@ export class CategoryListComponent extends React.Component<any, any> {
     }
 
     private delCategory = (e:any) => {
+        const ev = e || window.event;
+        ev.stopPropagation();
         const cat = this.state.categoryList[parseInt(e.target.id, 10)];
         netService.delData(`/categories/${cat.category}`)
             .then((data) => {

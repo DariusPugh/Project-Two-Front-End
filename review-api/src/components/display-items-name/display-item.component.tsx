@@ -8,8 +8,8 @@ export class DisplayItemComponent extends React.Component<any, any> {
   }
   public navigateToItem = (e: any, item:any)=>{
     // this.props.updateSelectedItem(item);
-    // this.props.updateTitle(item.title);
-    // this.props.updateCategory(item.category);
+    this.props.updateTitle(item.title);
+    this.props.updateCategory(item.category);
     this.props.history.push(`/categories/${item.category}/${item.title}`);
 
   }

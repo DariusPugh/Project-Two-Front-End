@@ -96,3 +96,14 @@ hr{
   bottom:0;
 }
 
+.del-icon {
+  display: block;
+  max-width:30px;
+  max-height:30px;
+  width: auto;
+  height: auto;
+}
+
+.transparent-btn {
+  background-color: transparent;
+}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as netService from '../../net-service/netService';
-import { ListGroup , ListGroupItem} from 'reactstrap';
+import { ListGroup , ListGroupItem } from 'reactstrap';
 // import { environment } from '../../environment';
 
 export class ItemListComponent extends React.Component<any, any> {
@@ -59,8 +59,8 @@ export class ItemListComponent extends React.Component<any, any> {
 
     return (
         <div>
-            <ListGroup>
             {this.newItemButton()}
+            <ListGroup>
             {this.state.itemList.map((item:any,i:number) =>{
                 return(
                 <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark">
@@ -104,9 +104,9 @@ export class ItemListComponent extends React.Component<any, any> {
     private deleteItemButton = (i:number) => {
         if (this.state.role === 'admin') {
             return (
-                <div>
-                <button className="btn btn-default text-right" id={`${i}`} role="button" onClick={this.delItem} type="button">Delete Item</button>
-                </div>
+                <button type="button" className="btn transparent-btn" aria-label="Left Align" id={`${i}`} onClick={this.delItem}>
+                    <img className="del-icon" src='https://cdn1.iconfinder.com/data/icons/basic-ui-elements-color/700/010_trash-2-512.png'id={`${i}`}/>
+                </button>
             );
         }
         return;
@@ -124,6 +124,8 @@ export class ItemListComponent extends React.Component<any, any> {
     }
 
     private delItem = (e:any) => {
+        const ev = e || window.event;
+        ev.stopPropagation();
         const item = this.state.itemList[parseInt(e.target.id, 10)];
         netService.delData(`/categories/${item.category}/${item.title}`)
             .then((data) => {

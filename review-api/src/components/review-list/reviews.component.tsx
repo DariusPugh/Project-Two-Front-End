@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as netService from '../../net-service/netService';
 // import { environment } from '../../environment';
+import { ListGroup , ListGroupItem } from 'reactstrap';
 import {ModalComponent} from '../modal-user-profile/modal-user-profile.component'
 
 export class ReviewListComponent extends React.Component<any, any> {
@@ -35,8 +36,12 @@ export class ReviewListComponent extends React.Component<any, any> {
         cat = splitPath[splitPath.length-2];
         titl = splitPath[splitPath.length-1];
 
-        this.props.updateTitle(titl);
-        this.props.updateCategory(cat);
+        if (this.props.item.title !== titl) {
+            this.props.updateTitle(titl);
+        }
+        if (this.props.category.category !== cat) {
+            this.props.updateCategory(cat);
+        }
         this.setup(); 
         if (this.props.cognitoUser.user) {
             netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
@@ -62,29 +67,47 @@ export class ReviewListComponent extends React.Component<any, any> {
     public render() {
         return (
             <div>
+                <img src={this.state.item.image}/>
                 <div>{'Title:' + this.state.item.title}</div>
                 <div>{'Score:' + this.state.item.avgScore}</div>
                 <div>{'Description:' + this.state.item.description}</div>
-                <div key={"item-container"} className="container">
                 {this.reviewThisButton()}
                 {this.editThisButton()}
+                <div>
+                <ListGroup>
+                
                 {this.state.reviewList.map((review:any, i:any) => {
                     // style this as a link
                     return (
-                            <div className="row" key={"row"+i}>
-                                <hr/>
-                                <div className="col">
-                                    <div key={i} className="link" onClick={this.updateReview} id={review.reviewID}>{this.state.reviewList[i].username}</div>
-                                    {this.deleteReviewButton(i)}
-                                </div>
-                                <div className="col">
-                                 <ModalComponent buttonLabel="View Profile" usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
-                                </div>
-                                <hr/>
+                        <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark">
+                        <div className="container-fluid" key={"container" + i}>
+                            <div className="row" key={"row"+i} onClick={(e) => this.updateReview(review.reviewID)}>
+                            <div className="col-sm-10">
+                            <div id="display-list-title" className = "row">
+                            <strong id={review.reviewID}>{review.username}</strong>
                             </div>
+                            <div className = "row" id={review.reviewID} >
+                                Score: {review.score}
+                            </div>
+                            <div className = "row" id={review.reviewID} >
+                                Description: <em id={review.reviewID}>{review.summary}</em>
+                            </div>
+                            </div>
+                            <div className="col">
+                                {this.deleteReviewButton(i)}
+                            </div>
+                            
+                            <div className="col">
+                                <ModalComponent buttonLabel="View Profile" usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                            </div>
+                                
+                            </div>
+                        </div>
+                    </ListGroupItem>
                             
                     );
                 })}
+                </ListGroup>
                 </div>
             </div>
         );
@@ -138,7 +161,7 @@ export class ReviewListComponent extends React.Component<any, any> {
     }
 
     private updateReview = (e:any) => {
-        const rid = e.target.id;
+        const rid = e;
         this.props.updateReviewID(rid);
         this.props.history.push(`/categories/${this.props.category.category}/${this.props.item.title}/r/${rid}`);
     }
