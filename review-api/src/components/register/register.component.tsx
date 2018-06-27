@@ -141,7 +141,6 @@ export class RegisterComponent extends React.Component<any, any> {
             </Row>
         </Container>
         </div>
-        );
-        
+        );     
     }
 }

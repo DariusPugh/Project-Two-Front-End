@@ -76,4 +76,23 @@ hr{
   color: red;
 }
 
+#sidebarColumn{
+  margin: 0;
+  padding-right: 0;
+
+}
+
+#switch-block{
+  background-color: #800000;
+  margin: 0 !important;
+
+
+}/******************************************
+  * SIGN OUT BUTTON
+  ******************************************/
+
+.sign-out-button {
+  position:absolute;
+  bottom:0;
+}
 
