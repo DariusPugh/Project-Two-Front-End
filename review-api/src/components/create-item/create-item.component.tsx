@@ -20,7 +20,7 @@ export class CreateItemComponent extends React.Component<any, any> {
         } else {
             let cat;
             const splitPath = this.props.location.pathname.split('/');
-            cat = splitPath[splitPath.length-1];
+            cat = splitPath[splitPath.length-2];
             this.props.updateCategory(cat);
             netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
                 .then((data) => {

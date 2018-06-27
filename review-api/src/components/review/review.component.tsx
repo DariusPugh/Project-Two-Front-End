@@ -99,7 +99,7 @@ export class ReviewComponent extends React.Component<any, any> {
                 message: this.state.comment,
                 username: this.props.cognitoUser.user.getUsername(),
             }
-            netService.postData(`/review/${this.props.review.rID}`, com)
+            netService.postData(`/review/${this.state.review.reviewID}`, com)
                 .then((data) => {
                     const comments = this.state.review.comments;
                     comments.push(com);
