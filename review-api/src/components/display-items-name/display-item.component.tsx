@@ -14,6 +14,19 @@ export class DisplayItemComponent extends React.Component<any, any> {
 
   }
 
+  public dipsplayDescription = (description: string)=>{
+    if(description.length > 24){
+      return (
+        <em> {description.substring(0,24)}...</em>
+      )
+    }
+    else{
+      return(
+        <em> {description}</em>
+      )
+    }
+  }
+
   public render() {
     return (
       <div>
@@ -34,7 +47,7 @@ export class DisplayItemComponent extends React.Component<any, any> {
                         Category: {item.category}
                       </div>
                       <div className = "row" >
-                        Description: <em>{item.description}</em>
+                        Description: {this.dipsplayDescription(item.description)}
                       </div>
                       <div className = "row">
                         Average Score: {item.averageScore}
