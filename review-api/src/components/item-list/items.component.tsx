@@ -83,8 +83,11 @@ export class ItemListComponent extends React.Component<any, any> {
                             Average Score: {item.averageScore}
                         </div>
                         </div>
+                        <div className="col">
                         {this.deleteItemButton(i)}
+                        </div>
                     </div>
+                    
                     </div>
                 </ListGroupItem>
                 )

@@ -45,8 +45,12 @@ export class CreateItemComponent extends React.Component<any, any> {
                                 <label htmlFor="input-title">Item Name</label>
                                 <input name="title" type="text" className="form-control" id="title" aria-describedby="titlehelp" placeholder="Name" onChange={this.inputChange} value={this.state.title}/>
                             </div>
+                            </div>
+                            <div className="form-row">
+                            <div className="form-group col-md-6">
                             <div>Image:</div>
                             <input name="image" type="text" className="form-control" id="image" aria-describedby="titlehelp" placeholder="Image url" onChange={this.inputChange} value={this.state.image}/>
+                            </div>
                             </div>
                             <div className="form-row">
                             <div className="form-group col-md-6">

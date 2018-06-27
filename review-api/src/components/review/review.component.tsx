@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as netService from '../../net-service/netService';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ModalComponent } from '../modal-user-profile/modal-user-profile.component';
 
 export class ReviewComponent extends React.Component<any, any> {
     constructor(props:any) {
@@ -42,20 +44,54 @@ export class ReviewComponent extends React.Component<any, any> {
     public render() {
         return (
             <div>
-                <div>{this.state.review.username}</div>
-                <div>{this.state.review.score}</div>
-                <p>{this.state.review.body}</p>
+                <ListGroup>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <div className="row">
+                            <div id="display-list-title" className = "col">
+                            <strong id={this.state.review.username}>{this.state.review.username}</strong>
+                            </div>
+                            <div className="col">
+                                <ModalComponent buttonLabel="View Profile" onClick={(e:any) => e.stopPropagation()} usernameModal={this.state.review.username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                            </div>
+                        </div>
+                    </ListGroupItem>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <div>{'Score: ' + this.state.review.score}</div>
+                    </ListGroupItem>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <p>{this.state.review.body}</p>
+                    </ListGroupItem>
+                </ListGroup>
+                <p/>
+                <p/>
+                <p/>
+                <ListGroup>
                 {this.state.review.comments.map((item:any, i:any) => {
                     return (
-                        <div key={i}>
-                            <div>{item.username}</div>
-                            <div>{item.message}</div>
-                            {this.deleteCommentButton(i)}
+                        <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <div className="container-fluid" key={"container" + i}>
+                            <div className="row" key={"row"+i}>
+                            <div className="col-sm-10">
+                            <div id="display-list-title" className = "row">
+                            <strong id={item.username}>{item.username}</strong>
+                            </div>
+                            <div className = "row" id={i} >
+                                {item.message}
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                        <div className="col">
+                                {this.deleteCommentButton(i)}
                         </div>
+                        <div className="col">
+                                <ModalComponent buttonLabel="View Profile" onClick={(e:any) => e.stopPropagation()} usernameModal ={this.state.review.comments[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                        </div>
+                    </ListGroupItem>
                     );
                 })}
+                </ListGroup>
                 {this.commentBox()}
-            
             </div>
         );
     }

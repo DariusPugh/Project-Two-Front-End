@@ -67,10 +67,21 @@ export class ReviewListComponent extends React.Component<any, any> {
     public render() {
         return (
             <div>
-                <img src={this.state.item.image}/>
-                <div>{'Title:' + this.state.item.title}</div>
-                <div>{'Score:' + this.state.item.avgScore}</div>
-                <div>{'Description:' + this.state.item.description}</div>
+                <ListGroup>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                    <h1 className="App"><strong>{this.state.item.title}</strong></h1>
+                    </ListGroupItem>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                    <span><img src={this.state.item.image}/></span>
+                    </ListGroupItem>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                    <strong>{'Score: ' + this.state.item.avgScore}</strong>
+                    </ListGroupItem>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                    <p>{this.state.item.description}</p>
+                    </ListGroupItem>
+                </ListGroup>
+            
                 {this.reviewThisButton()}
                 {this.editThisButton()}
                 <div>
@@ -90,18 +101,20 @@ export class ReviewListComponent extends React.Component<any, any> {
                                 Score: {review.score}
                             </div>
                             <div className = "row" id={review.reviewID} >
-                                Description: <em id={review.reviewID}>{review.summary}</em>
+                                Review: <em id={review.reviewID}>{review.summary}</em>
                             </div>
-                            </div>
-                            <div className="col">
-                                {this.deleteReviewButton(i)}
                             </div>
                             
-                            <div className="col">
-                                <ModalComponent buttonLabel="View Profile" usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
-                            </div>
+                            
+                            
                                 
                             </div>
+                        </div>
+                        <div className="col">
+                                {this.deleteReviewButton(i)}
+                        </div>
+                        <div className="col">
+                                <ModalComponent buttonLabel="View Profile" onClick={(e:any) => e.stopPropagation()} usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
                         </div>
                     </ListGroupItem>
                             
@@ -116,7 +129,9 @@ export class ReviewListComponent extends React.Component<any, any> {
     private deleteReviewButton = (i:string) => {
         if (this.state.role === 'admin') {
             return (
-                <button className="btn btn-default text-right" id={i} role="button" onClick={this.delReview} type="button">Delete Review</button>
+                <button type="button" className="btn transparent-btn" aria-label="Left Align" id={`${i}`} onClick={this.delReview}>
+                    <img className="del-icon" src='https://cdn1.iconfinder.com/data/icons/basic-ui-elements-color/700/010_trash-2-512.png'id={`${i}`}/>
+                </button>
             );
         } 
         return;
@@ -145,6 +160,8 @@ export class ReviewListComponent extends React.Component<any, any> {
     }
 
     private delReview =(e:any) => {
+        const ev = e || window.event;
+        ev.stopPropagation();
         const i = parseInt(e.target.id, 10);
         netService.delBody(`/review/${this.state.reviewList[i].reviewID}`, {
             index: i
@@ -179,6 +196,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                         avgScore: item.averageScore,
                         category: item.category,
                         description: item.description,
+                        image: item.image,
                         title: item.title,
                     }
                 });
