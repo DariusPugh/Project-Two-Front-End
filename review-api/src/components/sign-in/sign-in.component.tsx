@@ -129,6 +129,7 @@ export class SignInComponent extends React.Component<any, any> {
                   className="form-control"
                   placeholder="Username"
                   required />
+                <br/>
                 <label htmlFor="inputPassword" className="sr-only">Password</label>
                 <input value={this.props.password}
                   onChange={this.updatePassword}

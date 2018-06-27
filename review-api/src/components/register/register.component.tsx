@@ -132,7 +132,7 @@ export class RegisterComponent extends React.Component<any, any> {
                                         placeholder="email"/>
                                 </div>
                                 </div>
-                                <button type="submit" className="btn btn-primary register-button">Register</button>
+                                <button type="submit" className="btn btn-dark register-button">Register</button>
                                 {/* </form> */}
                             </form>
                 </div>
