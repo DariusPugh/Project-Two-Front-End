@@ -10,12 +10,15 @@
     "eject": "react-scripts-ts eject"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/bootstrap": "^4.1.1",
     "@types/react-redux": "^6.0.2",
     "@types/reactstrap": "^6.0.0",
     "@types/redux-logger": "^3.0.6",
     "amazon-cognito-identity-js": "^2.0.9",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "react": "^16.4.0",

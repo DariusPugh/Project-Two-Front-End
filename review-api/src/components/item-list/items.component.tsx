@@ -7,6 +7,7 @@ export class ItemListComponent extends React.Component<any, any> {
         super(props);
         this.state = {
             itemList: new Array(),
+            role: '',
         }
     }
 
@@ -29,11 +30,23 @@ export class ItemListComponent extends React.Component<any, any> {
                 }).catch((err) => {
                     console.log(err);
                 });
+        if (this.props.cognitoUser.user) {
+            netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
+                .then((data) => {
+                    this.setState({
+                        ...this.state,
+                        role: data.data.role,
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
+        }
     }
 
     public render() {
         return (
             <div>
+                {this.newItemButton()}
                 {this.state.itemList.map((item:any, i:any) => {
                     // style this as a link
                     return (
@@ -42,6 +55,26 @@ export class ItemListComponent extends React.Component<any, any> {
                 })}
             </div>
         );
+    }
+
+    private newItemButton = () => {
+        if (this.state.role) {
+            return (
+                <button className="btn btn-default text-right" role="button" onClick={this.create} type="button">New Item</button>
+            );
+        }
+        return;
+    }
+
+    private create = () => {
+        let category;
+        if (this.props.category.category) {
+            category = this.props.category.category;
+        } else {
+            const splitPath = this.props.location.pathname.split('/');
+            category = splitPath[splitPath.length-1];
+        }
+        this.props.history.push(`/categories/${category}/create`);
     }
 
     private updateTitle = (e:any) => {

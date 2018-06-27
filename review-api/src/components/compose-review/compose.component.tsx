@@ -11,7 +11,7 @@ export class ComposeComponent extends React.Component<any, any> {
     }
     
     public componentDidMount() {
-        if (!this.props.cognitoUser.user) {
+       if (!this.props.cognitoUser.user) {
             this.props.history.push('');
             
         }
@@ -21,6 +21,7 @@ export class ComposeComponent extends React.Component<any, any> {
         return (
             <div>
                 <div className="form-group">
+                    {this.test()}
                     <div>Score:</div>
                     <input name="score" type="number" className="form-control" id="score" aria-describedby="titlehelp" placeholder="Score" onChange={this.inputChange} value={this.state.score}/>
                 </div>
@@ -33,6 +34,11 @@ export class ComposeComponent extends React.Component<any, any> {
         );
     }
 
+    public test = ()=>{
+         console.log(this.props.item.title);
+         console.log(this.props.category.category);
+    }
+
     private inputChange = (e:any) => {
         this.setState({
             ...this.state,
@@ -41,15 +47,30 @@ export class ComposeComponent extends React.Component<any, any> {
     }
 
     private submit = () => {
+        let cat:string;
+        let titl:string;
+        if (this.props.category.category && this.props.item.title) {
+            cat = this.props.category.category;
+            titl = this.props.item.title;
+        } else {
+            const splitPath = this.props.location.pathname.split('/');
+            cat = splitPath[splitPath.length-3];
+            titl = splitPath[splitPath.length-2];
+        }
         const review = {
             body: this.state.body,
+            // category:this.props.category.category,
+            // score: this.state.score,
+            // title: this.props.item.title,
+            // username: /* get logged-in user from local storage */ 'Dynamo'
+            category: cat,
             score: this.state.score,
-            username: /* get logged-in user from local storage */ 'Dynamo'
+            title: titl,
+            username: this.props.cognitoUser.user.getUsername(),
         }
 
         netService.postData('/review', review)
             .then((data) => {
-                
                 const rID = data.data;
                 let category:string;
                 let title:string;

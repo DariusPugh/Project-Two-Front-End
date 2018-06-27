@@ -10,7 +10,7 @@ export const itemReducer = (state = initialState, action: any) => {
     case itemTypes.UPDATE_TITLE:
       return {
         ...state,
-        category: action.payload.title,
+        title: action.payload.title,
       };
   }
 
