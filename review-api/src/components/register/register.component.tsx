@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Container, Row, Col} from 'reactstrap';
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js'
 import * as netService from '../../net-service/netService'
 // import { reviewApiAxios } from "../../interceptors/review-interceptor";
@@ -92,55 +91,52 @@ export class RegisterComponent extends React.Component<any, any> {
     public render() {
         
         return (
-        <div id="register-component-wrapper">
-        <Container>
-            <Row className="justify-content-center">
-                <Col md={{ size: 8, offset: 2 }}>
-                    <form onSubmit={this.submit2}>
-                        <form onSubmit={(e:any)=>{this.submit(e, this.props.regusername, this.props.regpassword)}}>
-                        <div className="form-row">
-                        <div className="form-group col-md-6">
-                            <label htmlFor="input-title">Username</label>
-                            <input 
-                                value = {this.props.username}
-                                onChange = {this.registerUsername}
-                                type="text" 
-                                className="form-control" 
-                                id="input-username" 
-                                placeholder="Username"/>
-                        </div>
-                        </div>
-                        <div className="form-row">
-                        <div className="form-group col-md-6">
-                            <label htmlFor="input-amount">Password</label>
-                            <input 
-                                value = {this.props.password}
-                                onChange = {this.registerPassword}
-                                type="password" 
-                                className="form-control" 
-                                id="input-password" 
-                                placeholder="Password"/>
-                        </div>
-                        </div>
-                        <div className="form-row">
-                        <div className="form-group col-md-6">
-                            <label htmlFor="input-description">Email</label>
-                            <input 
-                                value = {this.props.email}
-                                onChange = {this.registerEmail}
-                                type="text" 
-                                className="form-control" 
-                                id="input-email" 
-                                placeholder="email"/>
-                        </div>
-                        </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                        </form>
-                    </form>
-                </Col>
-            </Row>
-        </Container>
-        </div>
+            <div className="row register-component-main-row">
+                <div id="register-component-wrapper">
+                        {/* <Col md={{ size: 8, offset: 2 }}> */}
+                            <form onSubmit={(e:any)=>{this.submit(e, this.props.regusername, this.props.regpassword); this.submit2(e)}} className="form-signin">
+                                {/* <form onSubmit={(e:any)=>{this.submit(e, this.props.regusername, this.props.regpassword)}}> */}
+                                <div className="">
+                                <div className="form-group">
+                                    <label htmlFor="input-title sr-only">Username</label>
+                                    <input 
+                                        value = {this.props.username}
+                                        onChange = {this.registerUsername}
+                                        type="text" 
+                                        className="form-control" 
+                                        id="input-username" 
+                                        placeholder="Username"/>
+                                </div>
+                                </div>
+                                <div className="">
+                                <div className="form-group">
+                                    <label htmlFor="input-amount">Password</label>
+                                    <input 
+                                        value = {this.props.password}
+                                        onChange = {this.registerPassword}
+                                        type="password" 
+                                        className="form-control" 
+                                        id="input-password" 
+                                        placeholder="Password"/>
+                                </div>
+                                </div>
+                                <div className="">
+                                <div className="form-group">
+                                    <label htmlFor="input-description">Email</label>
+                                    <input 
+                                        value = {this.props.email}
+                                        onChange = {this.registerEmail}
+                                        type="text" 
+                                        className="form-control" 
+                                        id="input-email" 
+                                        placeholder="email"/>
+                                </div>
+                                </div>
+                                <button type="submit" className="btn btn-dark register-button">Register</button>
+                                {/* </form> */}
+                            </form>
+                </div>
+            </div>
         );     
     }
 }
