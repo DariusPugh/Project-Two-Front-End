@@ -118,9 +118,7 @@ export class ItemListComponent extends React.Component<any, any> {
     private newItemButton = () => {
         if (this.state.role === 'admin') {
             return (
-                <div>
                 <button className="btn btn-default text-right" role="button" onClick={this.create} type="button">New Item</button>
-                </div>
             );
         }
         return;
