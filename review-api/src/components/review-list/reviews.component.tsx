@@ -20,59 +20,9 @@ export class ReviewListComponent extends React.Component<any, any> {
     public componentDidUpdate(prevProps:any, prevState:any) {
             // only update chart if the data has changed
         if (prevProps.category !== this.props.category || prevProps.title !== this.props.title) {
-        
-        let category;
-        let title;
-        if (this.props.category.category && this.props.item.title) {
-            category = this.props.category.category;
-            title = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-2];
-            title = splitPath[splitPath.length-1];
-        }
-        netService.getData(`/categories/${category}/${title}`)
-            .then((data) => {
-                const item = data.data[0];
-
-                const reviews = item.reviews;
-                const reviewDetails = new Array();
-                this.setState({
-                    ...this.state,
-                    item: {
-                        avgScore: item.averageScore,
-                        description: item.description,
-                        title: item.title,
-                    }
-                });
-
-                for (let i = 0; i < reviews.length; i++) {
-                    netService.getData(`/review/${reviews[i]}`)
-                    .then((resp) => {
-                        const review = resp.data[0];
-                        let short = review.body;
-                        if (short.length > 25) {
-                            short = `${short.substring(0,24)}...`;
-                        }
-                        reviewDetails.push({
-                            commentCount: review.comments.length,
-                            reviewID: review.reviewID,
-                            score: review.score,
-                            summary: short,
-                            username: review.username,
-                        });
-                        this.setState({
-                            ...this.state,
-                            reviewList: reviewDetails,
-                        });
-                    }).catch((err) => {
-                        console.log(err);
-                    });
-                }     
-            }).catch((err) => {
-                console.log(err);
-            });
-            
+            if (this.props.category.category && this.props.item.title) {
+                this.setup();
+            }
         }
       }
 
@@ -81,67 +31,24 @@ export class ReviewListComponent extends React.Component<any, any> {
         // call server to get the component list
         let cat;
         let titl;
-        if (this.props.category.category && this.props.item.title) {
-            cat = this.props.category.category;
-            titl = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            cat = splitPath[splitPath.length-2];
-            titl = splitPath[splitPath.length-1];
-        }
-        netService.getData(`/categories/${cat}/${titl}`)
-            .then((data) => {
-                const item = data.data[0];
+        const splitPath = this.props.location.pathname.split('/');
+        cat = splitPath[splitPath.length-2];
+        titl = splitPath[splitPath.length-1];
 
-                const reviews = item.reviews;
-                const reviewDetails = new Array();
-                this.setState({
-                    ...this.state,
-                    item: {
-                        avgScore: item.averageScore,
-                        category: item.category,
-                        description: item.description,
-                        title: item.title,
-                    }
+        this.props.updateTitle(titl);
+        this.props.updateCategory(cat);
+        this.setup(); 
+        if (this.props.cognitoUser.user) {
+            netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
+                .then((data) => {
+                    this.setState({
+                        ...this.state,
+                        role: data.data.role,
+                    });
+                }).catch((err) => {
+                    console.log(err);
                 });
-
-                for (let i = 0; i < reviews.length; i++) {
-                    netService.getData(`/review/${reviews[i]}`)
-                    .then((resp) => {
-                        const review = resp.data[0];
-                        let short = review.body;
-                        if (short.length > 25) {
-                            short = `${short.substring(0,24)}...`;
-                        }
-                        reviewDetails.push({
-                            commentCount: review.comments.length,
-                            reviewID: review.reviewID,
-                            score: review.score,
-                            summary: short,
-                            username: review.username,
-                        });
-                        this.setState({
-                            ...this.state,
-                            reviewList: reviewDetails,
-                        });
-                    }).catch((err) => {
-                        console.log(err);
-                    });
-                }     
-            }).catch((err) => {
-                console.log(err);
-            });
-            if (this.props.cognitoUser.user) {
-                netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
-                    .then((data) => {
-                        this.setState({
-                            ...this.state,
-                            role: data.data.role,
-                        });
-                    }).catch((err) => {
-                        console.log(err);
-                    });
-            }
+        }
             
     }
 
@@ -219,53 +126,65 @@ export class ReviewListComponent extends React.Component<any, any> {
         netService.delBody(`/review/${this.state.reviewList[i].reviewID}`, {
             index: i
         }).then((data) => {
-            // this.componentDidMount();
-            let category;
-            let title;
-            if (this.props.category.category && this.props.item.title) {
-                category = this.props.category.category;
-                title = this.props.item.title;
-            } else {
-                const splitPath = this.props.location.pathname.split('/');
-                category = splitPath[splitPath.length-2];
-                title = splitPath[splitPath.length-1];
-            }
             this.props.history.push('/');
-            this.props.history.push(`/categories/${category}/${title}`);
+            this.props.history.push(`/categories/${this.props.category.category}/${this.props.item.title}`);
         }).catch((err) => {
             console.log(err);
         });
     }
 
     private toReview = () => {
-        let category;
-        let title;
-        if (this.props.category.category && this.props.item.title) {
-            category = this.props.category.category;
-            title = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-2];
-            title = splitPath[splitPath.length-1];
-        }
-        this.props.updateCategory(category);
-        this.props.updateTitle(title);
-        this.props.history.push(`/categories/${category}/${title}/review`);
+        this.props.history.push(`/categories/${this.props.category.category}/${this.props.item.title}/review`);
     }
 
     private updateReview = (e:any) => {
         const rid = e.target.id;
         this.props.updateReviewID(rid);
-        let category;
-        let title;
-        if (this.props.category.category && this.props.item.title) {
-            category = this.props.category.category;
-            title = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-2];
-            title = splitPath[splitPath.length-1];
-        }
-        this.props.history.push(`/categories/${category}/${title}/r/${rid}`);
+        this.props.history.push(`/categories/${this.props.category.category}/${this.props.item.title}/r/${rid}`);
+    }
+
+    private setup = () => {
+        netService.getData(`/categories/${this.props.category.category}/${this.props.item.title}`)
+            .then((data) => {
+                const item = data.data[0];
+
+                const reviews = item.reviews;
+                const reviewDetails = new Array();
+                this.setState({
+                    ...this.state,
+                    item: {
+                        avgScore: item.averageScore,
+                        category: item.category,
+                        description: item.description,
+                        title: item.title,
+                    }
+                });
+
+                for (let i = 0; i < reviews.length; i++) {
+                    netService.getData(`/review/${reviews[i]}`)
+                    .then((resp) => {
+                        const review = resp.data[0];
+                        let short = review.body;
+                        if (short.length > 25) {
+                            short = `${short.substring(0,24)}...`;
+                        }
+                        reviewDetails.push({
+                            commentCount: review.comments.length,
+                            reviewID: review.reviewID,
+                            score: review.score,
+                            summary: short,
+                            username: review.username,
+                        });
+                        this.setState({
+                            ...this.state,
+                            reviewList: reviewDetails,
+                        });
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }     
+            }).catch((err) => {
+                console.log(err);
+            });
     }
 }

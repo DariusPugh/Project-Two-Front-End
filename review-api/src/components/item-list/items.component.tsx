@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as netService from '../../net-service/netService';
+import { ListGroup , ListGroupItem} from 'reactstrap';
 // import { environment } from '../../environment';
 
 export class ItemListComponent extends React.Component<any, any> {
@@ -14,12 +15,9 @@ export class ItemListComponent extends React.Component<any, any> {
     public componentDidMount() {
         // call server to get the component list
         let category;
-        if (this.props.category.category) {
-            category = this.props.category.category;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-1];
-        }
+        const splitPath = this.props.location.pathname.split('/');
+        category = splitPath[splitPath.length-1];
+        this.props.updateCategory(category);
         netService.getData(`/categories/${category}`)
                 .then((data) => {
                     const items = data.data;
@@ -44,7 +42,7 @@ export class ItemListComponent extends React.Component<any, any> {
     }
 
     public render() {
-        return (
+        /*return (
             <div>
                 {this.newItemButton()}
                 {this.state.itemList.map((item:any, i:any) => {
@@ -57,14 +55,57 @@ export class ItemListComponent extends React.Component<any, any> {
                     );
                 })}
             </div>
+        );*/
+
+    return (
+        <div>
+            <ListGroup>
+            {this.newItemButton()}
+            {this.state.itemList.map((item:any,i:number) =>{
+                return(
+                <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark">
+                    <div className="container-fluid" key={"container" + i}>
+                    <div className="row no-pad" onClick={() => this.updateTitle(item)}>
+                        <div className="col-2">
+                        <span><img src={this.getImage(i)} alt=""/></span>
+                        </div>
+                        <div className="col-sm-10">
+                        <div id="display-list-title" className = "row">
+                            <strong>{item.title}</strong>
+                        </div>
+                        <div className = "row">
+                            Category: {item.category}
+                        </div>
+                        <div className = "row" >
+                            Description: <em>{item.description}</em>
+                        </div>
+                        <div className = "row">
+                            Average Score: {item.averageScore}
+                        </div>
+                        </div>
+                        {this.deleteItemButton(i)}
+                    </div>
+                    </div>
+                </ListGroupItem>
+                )
+            })}
+            </ListGroup>
+        </div>
         );
     }
 
-    private deleteItemButton = (i:string) => {
+    private getImage = (i:number) => {
+        if (this.state.itemList[i].image) {
+            return this.state.itemList[i].image;
+        }
+        return "https://screenshotlayer.com/images/assets/placeholder.png";
+    }
+
+    private deleteItemButton = (i:number) => {
         if (this.state.role === 'admin') {
             return (
                 <div>
-                <button className="btn btn-default text-right" id={i} role="button" onClick={this.delItem} type="button">Delete Item</button>
+                <button className="btn btn-default text-right" id={`${i}`} role="button" onClick={this.delItem} type="button">Delete Item</button>
                 </div>
             );
         }
@@ -93,26 +134,12 @@ export class ItemListComponent extends React.Component<any, any> {
     }
 
     private create = () => {
-        let category;
-        if (this.props.category.category) {
-            category = this.props.category.category;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-1];
-        }
-        this.props.history.push(`/categories/${category}/create`);
+        this.props.history.push(`/categories/${this.props.category.category}/create`);
     }
 
-    private updateTitle = (e:any) => {
-        const title = e.target.id;
+    private updateTitle = (item:any) => {
+        const title = item.title;
         this.props.updateTitle(title);
-        let category;
-        if (this.props.category.category) {
-            category = this.props.category.category;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            category = splitPath[splitPath.length-1];
-        }
-        this.props.history.push(`/categories/${category}/${title}`);
+        this.props.history.push(`/categories/${this.props.category.category}/${title}`);
     }
 }

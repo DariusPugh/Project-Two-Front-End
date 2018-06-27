@@ -9,6 +9,7 @@ export class CreateItemComponent extends React.Component<any, any> {
         
         this.state = {
             description: '',
+            image: '',
             title: '',
         }
     }
@@ -17,6 +18,10 @@ export class CreateItemComponent extends React.Component<any, any> {
         if (!this.props.cognitoUser.user) {
             this.props.history.push('');
         } else {
+            let cat;
+            const splitPath = this.props.location.pathname.split('/');
+            cat = splitPath[splitPath.length-2];
+            this.props.updateCategory(cat);
             netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
                 .then((data) => {
                     if (data.data.role !== 'admin') {
@@ -40,6 +45,8 @@ export class CreateItemComponent extends React.Component<any, any> {
                                 <label htmlFor="input-title">Item Name</label>
                                 <input name="title" type="text" className="form-control" id="title" aria-describedby="titlehelp" placeholder="Name" onChange={this.inputChange} value={this.state.title}/>
                             </div>
+                            <div>Image:</div>
+                            <input name="image" type="text" className="form-control" id="image" aria-describedby="titlehelp" placeholder="Image url" onChange={this.inputChange} value={this.state.image}/>
                             </div>
                             <div className="form-row">
                             <div className="form-group col-md-6">
@@ -64,25 +71,35 @@ export class CreateItemComponent extends React.Component<any, any> {
     }
 
     private submit = () => {
-        let cat;
-        if (this.props.category.category) {
-            cat = this.props.category.category;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            cat = splitPath[splitPath.length-1];
-        }
-        if (this.state.title && this.state.description) {
-            netService.postData(`/categories/${cat}`, {
+        let itm;
+            
+        if (this.state.image) {
+            itm = {
                 averageScore: 0,
-                category: cat,
+                category: this.props.category.category,
+                count: 0,
+                description: this.state.description,
+                image: this.state.image,
+                reviews: [],
+                title: this.state.title,
+            }
+        } else {
+            itm = {
+                averageScore: 0,
+                category: this.props.category.category,
                 count: 0,
                 description: this.state.description,
                 reviews: [],
                 title: this.state.title,
-            }).then((data) => {
+            }
+        }
+        if (this.state.title && this.state.description) {
+            netService.postData(`/categories/${this.props.category.category}`, itm)
+            .then((data) => {
                 this.setState({
                     ...this.state,
                     description: '',
+                    image: '',
                     title: ''
                 });
             }).catch((err) => {

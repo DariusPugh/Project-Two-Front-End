@@ -18,14 +18,11 @@ export class ComposeComponent extends React.Component<any, any> {
         } else {
             let cat;
             let titl;
-            if (this.props.category.category && this.props.item.title) {
-                cat = this.props.category.category;
-                titl = this.props.item.title;
-            } else {
-                const splitPath = this.props.location.pathname.split('/');
-                cat = splitPath[splitPath.length-3];
-                titl = splitPath[splitPath.length-2];
-            }
+            const splitPath = this.props.location.pathname.split('/');
+            cat = splitPath[splitPath.length-3];
+            titl = splitPath[splitPath.length-2];
+            this.props.updateTitle(titl);
+            this.props.updateCategory(cat);
             netService.putData('/review', {
                     category: cat,
                     title: titl,
@@ -79,73 +76,36 @@ export class ComposeComponent extends React.Component<any, any> {
             this.submitEdit();
             return;
         }
-        let cat:string;
-        let titl:string;
-        if (this.props.category.category && this.props.item.title) {
-            cat = this.props.category.category;
-            titl = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            cat = splitPath[splitPath.length-3];
-            titl = splitPath[splitPath.length-2];
-        }
         const review = {
             body: this.state.body,
             // category:this.props.category.category,
             // score: this.state.score,
             // title: this.props.item.title,
             // username: /* get logged-in user from local storage */ 'Dynamo'
-            category: cat,
+            category: this.props.category.category,
             rid: this.state.rid,
             score: this.state.score,
-            title: titl,
+            title: this.props.item.title,
             username: this.props.cognitoUser.user.getUsername(),
         }
 
         netService.postData('/review', review)
             .then((data) => {
-                const rID = data.data;
-                let category:string;
-                let title:string;
-                if (this.props.category.category && this.props.item.title) {
-                    category = this.props.category.category;
-                    title = this.props.item.title;
-                } else {
-                    const splitPath = this.props.location.pathname.split('/');
-                    category = splitPath[splitPath.length-3];
-                    title = splitPath[splitPath.length-2];
-                    alert(`${title} ${category}`)
-                }
-                netService.postData(`/categories/${category}/${title}/review`, rID)
-                    .then((resp) => {
-                        this.props.history.push(`/categories/${category}/${title}`);
-                    }).catch((err) => {
-                        console.log(err);
-                    });
+                this.props.history.push(`/categories/${review.category}/${review.title}`);
             }).catch((err) => {
                 console.log(err);
             });
     }
 
     private submitEdit = () => {
-        let cat:string;
-        let titl:string;
-        if (this.props.category.category && this.props.item.title) {
-            cat = this.props.category.category;
-            titl = this.props.item.title;
-        } else {
-            const splitPath = this.props.location.pathname.split('/');
-            cat = splitPath[splitPath.length-3];
-            titl = splitPath[splitPath.length-2];
-        }
         netService.patchData('/review', {
             body: this.state.body,
-            category: cat,
+            category: this.props.category.category,
             reviewID: this.state.rid,
             score: this.state.score,
-            title: titl,
+            title: this.props.item.title,
         }).then((data) => {
-            this.props.history.push(`/categories/${cat}/${titl}`);
+            this.props.history.push(`/categories/${this.props.category.category}/${this.props.item.title}`);
         }).catch((err) => {
             console.log(err);
         });
