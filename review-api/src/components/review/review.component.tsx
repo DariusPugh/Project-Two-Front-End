@@ -61,7 +61,12 @@ export class ReviewComponent extends React.Component<any, any> {
     public render() {
         return (
             <div>
+                
                 <ListGroup>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <button className="btn btn-default text-right" role="button" onClick={this.back} type="button">{this.state.review.title}</button>
+                        <p/>
+                    </ListGroupItem>
                     <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
                         <div className="row">
                             <div id="display-list-title" className = "col"
@@ -134,6 +139,10 @@ export class ReviewComponent extends React.Component<any, any> {
             }).catch((err) => {
                 console.log(err);
             })
+    }
+
+    private back = () => {
+        this.props.history.push(`/categories/${this.state.review.category}/${this.state.review.title}`);
     }
 
     private commentBox = () => {

@@ -59,6 +59,8 @@ export class ItemListComponent extends React.Component<any, any> {
 
     return (
         <div>
+            <button className="btn btn-default text-right" role="button" onClick={this.back} type="button">Category List</button>
+            <p/>
             <ListGroup>
             {this.newItemButton()}
             {this.state.itemList.map((item:any,i:number) =>{
@@ -95,6 +97,10 @@ export class ItemListComponent extends React.Component<any, any> {
             </ListGroup>
         </div>
         );
+    }
+
+    private back = () => {
+        this.props.history.push(`/categories`);
     }
 
     private getImage = (i:number) => {
