@@ -25,7 +25,7 @@ export class CreateItemComponent extends React.Component<any, any> {
             netService.getData(`/user/${this.props.cognitoUser.user.getUsername()}`)
                 .then((data) => {
                     if (data.data.role !== 'admin') {
-                        this.props.history.push('');
+                        this.props.history.push('/home');
                     }
                 }).catch((err) => {
                     console.log(err);           
