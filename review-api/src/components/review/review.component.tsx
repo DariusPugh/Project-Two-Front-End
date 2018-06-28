@@ -48,6 +48,7 @@ export class ReviewComponent extends React.Component<any, any> {
     }
 
     public onRunClick(act:any,index:any,e:any){
+        e.stopPropagation();
         this.state.btn[index].toggle();
     }
 

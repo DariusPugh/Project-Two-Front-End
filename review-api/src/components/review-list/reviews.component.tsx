@@ -8,6 +8,7 @@ export class ReviewListComponent extends React.Component<any, any> {
     constructor(props:any) {
         super(props);
         this.state = {
+            btn: [],
             child:React.createRef(),
             item: {
                 avgScore: '',
@@ -28,6 +29,10 @@ export class ReviewListComponent extends React.Component<any, any> {
             }
         }
       }
+
+    public onRunClick(act:any,index:any,e:any){
+        this.state.btn[index].toggle();
+    }
 
 
     public componentDidMount() {
@@ -90,6 +95,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                 <ListGroup>
                 
                 {this.state.reviewList.map((review:any, i:any) => {
+                    const boundActRunClick = this.onRunClick.bind(this, review ,i)
                     // style this as a link
                     return (
                         <div key={i}>
@@ -98,9 +104,10 @@ export class ReviewListComponent extends React.Component<any, any> {
                             <div className="row" key={"row"+i} onClick={(e) => this.updateReview(review.reviewID)}>
                             <div className="col-sm-10">
                             <div id="display-list-title" className = "row"
-                                onClick={this.modalHandler}
+                                onClick={(e:any)=>{boundActRunClick();e.stopPropagation()}}
                             >    
-                                <strong id={review.reviewID}>{review.username}</strong>
+                                <strong id={review.reviewID}
+                                >{review.username}</strong>
                             </div>
                             <div className = "row" id={review.reviewID} >
                                 Score: {review.score}
@@ -114,13 +121,13 @@ export class ReviewListComponent extends React.Component<any, any> {
                         <div className="col">
                                 {this.deleteReviewButton(i)}
                         </div>
-                        <div className="col">
-                                <ModalComponent buttonLabel="View Profile" onClick={(e:any) => e.stopPropagation()} usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
-                        </div>
                     </ListGroupItem>
                         <div className="col">
-                         <ModalComponent ref={this.state.child} buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                         <ModalComponent ref={(ref:any)=>this.state.btn[i]=ref} buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
                         </div>
+                        {/* <div className="col">
+                            <ModalComponent buttonLabel="View Profile" onClick={(e:any) => e.stopPropagation()} usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                        </div> */}
                     </div>
                     );
                 })}
