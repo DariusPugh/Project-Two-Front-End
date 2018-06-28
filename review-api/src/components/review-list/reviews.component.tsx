@@ -123,7 +123,7 @@ export class ReviewListComponent extends React.Component<any, any> {
                         </div>
                     </ListGroupItem>
                         <div className="col">
-                         <ModalComponent ref={(ref:any)=>this.state.btn[i]=ref} buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                         <ModalComponent ref={(ref:any)=>this.state.btn[i]=ref} buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={review.username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
                         </div>
                         {/* <div className="col">
                             <ModalComponent buttonLabel="View Profile" onClick={(e:any) => e.stopPropagation()} usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>

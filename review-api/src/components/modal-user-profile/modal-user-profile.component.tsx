@@ -70,7 +70,7 @@ export class ModalComponent extends React.Component <any,any>{
     console.log(this.props.history)
     this.props.updateCategory(category);
     this.props.updateTitle(item);
-    this.props.history.push(`/categories/${category}/${item}`);
+    this.props.history.push(`/categories/${category}/${item}/r/${reviewID}`);
   }
 
   public render() {
