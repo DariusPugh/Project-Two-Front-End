@@ -47,8 +47,12 @@ export class EditItemComponent extends React.Component<any, any> {
                             <div className="form-group col-md-6">
                                 {this.getName()}
                             </div>
+                            </div>
+                            <div className="form-row">
+                            <div className="form-group col-md-6">
                             <div>Image:</div>
-                            <input name="image" type="text" className="form-control" id="image" aria-describedby="titlehelp" placeholder="Image url" onChange={this.imageChange} value={this.state.item.image}/>
+                            <input name="image" type="text" className="form-control" id="image" aria-describedby="titlehelp" placeholder="Image url" onChange={this.imageChange} value={this.state.image}/>
+                            </div>
                             </div>
                             <div className="form-row">
                             <div className="form-group col-md-6">

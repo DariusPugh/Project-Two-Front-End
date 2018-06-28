@@ -70,9 +70,6 @@ export class SidebarComponent extends React.Component<any, any> {
               <Link to="/register" className="unset-anchor nav-link"><span><i className="fa fa-pencil-square-o" aria-hidden="true"></i></span> Register</Link>
             </NavItem>
             <NavItem>
-              <Link to="/create-item" className="unset-anchor nav-link"><span><i className="fa fa-plus-square" aria-hidden="true"></i></span> Create Item</Link>
-            </NavItem>
-            <NavItem>
               <Link to="/categories" className="unset-anchor nav-link"><span><i className="fa fa-cubes" aria-hidden="true"></i></span> Categories</Link>
             </NavItem>
           </Nav>

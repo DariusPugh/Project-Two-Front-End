@@ -120,7 +120,6 @@ export class SignInComponent extends React.Component<any, any> {
         <div className="sign-in-wrapper">
             {!this.props.firstSignIn.isFirstSignIn &&
               <form className="form-signin" onSubmit={this.submit}>
-                <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                 <label htmlFor="inputUsername" className="sr-only">Username</label>
                 <input value={this.props.username}

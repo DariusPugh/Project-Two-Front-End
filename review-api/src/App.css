@@ -231,3 +231,9 @@ hr{
   background-color: transparent;
 }
 
+.transparent-list-group {
+  background-color: transparent;
+  border-color: transparent;
+  border-top: 0px solid transparent !important;
+  border-radius: 0 !important;
+  }

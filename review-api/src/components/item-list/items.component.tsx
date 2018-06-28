@@ -59,13 +59,13 @@ export class ItemListComponent extends React.Component<any, any> {
 
     return (
         <div>
-            {this.newItemButton()}
             <ListGroup>
+            {this.newItemButton()}
             {this.state.itemList.map((item:any,i:number) =>{
                 return(
                 <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark">
                     <div className="container-fluid" key={"container" + i}>
-                    <div className="row no-pad" onClick={() => this.updateTitle(item)}>
+                    <div className="row" onClick={() => this.updateTitle(item)}>
                         <div className="col-2">
                         <span><img src={this.getImage(i)} alt=""/></span>
                         </div>
@@ -83,8 +83,11 @@ export class ItemListComponent extends React.Component<any, any> {
                             Average Score: {item.averageScore}
                         </div>
                         </div>
+                        <div className="col">
                         {this.deleteItemButton(i)}
+                        </div>
                     </div>
+                    
                     </div>
                 </ListGroupItem>
                 )
@@ -115,9 +118,7 @@ export class ItemListComponent extends React.Component<any, any> {
     private newItemButton = () => {
         if (this.state.role === 'admin') {
             return (
-                <div>
                 <button className="btn btn-default text-right" role="button" onClick={this.create} type="button">New Item</button>
-                </div>
             );
         }
         return;

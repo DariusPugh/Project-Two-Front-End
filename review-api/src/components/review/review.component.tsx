@@ -1,15 +1,21 @@
 import * as React from 'react';
 import * as netService from '../../net-service/netService';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ModalComponent } from '../modal-user-profile/modal-user-profile.component';
 
 export class ReviewComponent extends React.Component<any, any> {
     constructor(props:any) {
         super(props);
         this.state = {
+            btn: [],
+            child: React.createRef(),
             comment: '',
+            openModal: false,
             review: {
                 comments: [],
             },
             role: '',
+            
         }
     }
 
@@ -21,8 +27,10 @@ export class ReviewComponent extends React.Component<any, any> {
         netService.getData(`/review/${rid}`)
                 .then((data) => {
                     this.setState({
+                        ...this.state,
                         review: data.data[0],
                     });
+                    console.log(this.state.review);
                 }).catch((err) => {
                     console.log(err);
                 });
@@ -39,23 +47,73 @@ export class ReviewComponent extends React.Component<any, any> {
         }
     }
 
+    public onRunClick(act:any,index:any,e:any){
+        this.state.btn[index].toggle();
+    }
+
+
+
+    public modalHandler= (e:any)=>{
+        e.stopPropagation();
+        this.state.child.current.toggle();
+    }
+
     public render() {
         return (
             <div>
-                <div>{this.state.review.username}</div>
-                <div>{this.state.review.score}</div>
-                <p>{this.state.review.body}</p>
-                {this.state.review.comments.map((item:any, i:any) => {
-                    return (
-                        <div key={i}>
-                            <div>{item.username}</div>
-                            <div>{item.message}</div>
-                            {this.deleteCommentButton(i)}
+                <ListGroup>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <div className="row">
+                            <div id="display-list-title" className = "col"
+                                 onClick={this.modalHandler}
+                            >
+                                <strong id={this.state.review.username}>{this.state.review.username}</strong>
+                            </div>
+                            <div className="col">
+                            <ModalComponent  ref={this.state.child}  buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={this.state.review.username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                            </div>
                         </div>
+                    </ListGroupItem>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <div>{'Score: ' + this.state.review.score}</div>
+                    </ListGroupItem>
+                    <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <p>{this.state.review.body}</p>
+                    </ListGroupItem>
+                </ListGroup>
+                <p/>
+                <p/>
+                <p/>
+                <ListGroup>
+                {this.state.review.comments.map((item:any, i:any) => {
+                    const boundActRunClick = this.onRunClick.bind(this, item ,i)
+                    return (
+                        <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
+                        <div className="container-fluid" key={"container" + i}>
+                            <div className="row" key={"row"+i}>
+                            <div className="col-sm-10">
+                            <div id="display-list-title" className = "row"
+                                onClick={boundActRunClick}
+                            >
+                            <strong id={item.username}>{item.username}</strong>
+                            </div>
+                            <div className = "row" id={i} >
+                                {item.message}
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                        <div className="col">
+                                {this.deleteCommentButton(i)}
+                        </div>
+                        <div className="col">
+                         <ModalComponent key={"reviews-modal"+i} ref={(ref:any)=>this.state.btn[i]=ref} id={"modal-id"+i} buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={item.username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                        </div>
+                    </ListGroupItem>
                     );
                 })}
+                </ListGroup>
                 {this.commentBox()}
-            
             </div>
         );
     }
