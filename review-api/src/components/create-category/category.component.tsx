@@ -31,6 +31,8 @@ export class CreateCategoryComponent extends React.Component<any, any> {
                <div className="form-group">
                     <div>Category Name:</div>
                     <input name="category" type="text" className="form-control" id="category" aria-describedby="titlehelp" placeholder="Category name" onChange={this.inputChange} value={this.state.category}/>
+                    <div>Image:</div>
+                    <input name="image" type="text" className="form-control" id="image" aria-describedby="titlehelp" placeholder="Image url" onChange={this.inputChange} value={this.state.image}/>
                 </div> 
                 <button className="btn btn-default text-right" role="button" onClick={this.submit} type="button">Submit</button>
             </div>
@@ -38,13 +40,24 @@ export class CreateCategoryComponent extends React.Component<any, any> {
     }
 
     private submit = () => {
-        if (this.state.category) { 
-            netService.postData('/categories', {
+        let cat;
+        if (this.state.image) {
+            cat = {
                 category: this.state.category,
-                count: 0
-            }).then((data) => {
+                count: 0,
+                image: this.state.image,
+            }
+        } else {
+            cat = {
+                category: this.state.category,
+                count: 0,
+            }
+        }
+        if (this.state.category) { 
+            netService.postData('/categories', cat).then((data) => {
                 this.setState({
-                    category: ''
+                    category: '',
+                    image: ''
                 });
             }).catch((err) => {
                 console.log(err);
@@ -55,7 +68,7 @@ export class CreateCategoryComponent extends React.Component<any, any> {
     private inputChange = (e:any) => {
         this.setState({
             ...this.state,
-            category: e.target.value
+            [e.target.id]: e.target.value
         });
     }
 }
