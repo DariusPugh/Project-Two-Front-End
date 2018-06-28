@@ -159,3 +159,11 @@ body.modal-open{
   max-width:220px;
   max-height:85px; */
 }
+
+.modal-user-reviews-list{
+  cursor: pointer;
+}
+
+.modal-user-reviews-list:hover{
+  color:yellow;
+}
