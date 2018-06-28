@@ -90,6 +90,7 @@ export class ReviewComponent extends React.Component<any, any> {
                 <p/>
                 <p/>
                 <ListGroup>
+                <div>Comments:</div>
                 {this.state.review.comments.map((item:any, i:any) => {
                     const boundActRunClick = this.onRunClick.bind(this, item ,i)
                     return (
