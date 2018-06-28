@@ -9,7 +9,7 @@ import { DisplayItemsContainer } from './components/display-items-name/display-i
 import { RegisterContainer } from './components/register/register.container';
 import { SidebarContainer } from './components/sidebar/sidebar.cotainer';
 import { SignInContainer } from './components/sign-in/sign-in.container';
-// import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { CategoryListContainer } from './components/category-list/categories.container';
 import { ItemListContainer } from './components/item-list/items.container';
 import { ReviewListContainer } from './components/review-list/reviews.container';
@@ -32,7 +32,7 @@ class App extends React.Component {
             </Col>
             <Col id="switch-block">
                 <Switch>
-                  {/* <Route path="/home" component={HomeComponent} /> */}
+                  <Route path="/home" component={HomeComponent} />
                   <Route path="/sign-in" component={SignInContainer} />
                   <Route path="/register" component={RegisterContainer} />
                   <Route path="/categories/create" component={CreateCategoryContainer}/>

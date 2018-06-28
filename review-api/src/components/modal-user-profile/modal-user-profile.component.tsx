@@ -78,6 +78,7 @@ export class ModalComponent extends React.Component <any,any>{
             <div>
                 {'banned: '+this.state.banned}
             </div>
+            <p/>
             <div>
                 {this.state.reviews.map((item:any, i:number)=>{
                     return(
