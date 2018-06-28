@@ -20,6 +20,9 @@ export class ModalComponent extends React.Component <any,any>{
   }
 
   public toggle() {
+    this.setState({
+        username:this.props.usernameModal
+    });
     axios.get('https://owdw8b3ri4.execute-api.us-east-2.amazonaws.com/dev/user/'+this.state.username)
     .then((resp:any)=>{
         this.setState({
@@ -41,6 +44,14 @@ export class ModalComponent extends React.Component <any,any>{
     .catch((err)=>{
         console.log(err);
     })
+
+
+    console.log("test".repeat(4));
+    console.log(this.state);
+    console.log(this.props.usernameModal);
+    
+
+
   }
 
   public changeBackdrop(e:any) {

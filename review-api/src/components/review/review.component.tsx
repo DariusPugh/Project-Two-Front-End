@@ -7,11 +7,15 @@ export class ReviewComponent extends React.Component<any, any> {
     constructor(props:any) {
         super(props);
         this.state = {
+            btn: [],
+            child: React.createRef(),
             comment: '',
+            openModal: false,
             review: {
                 comments: [],
             },
             role: '',
+            
         }
     }
 
@@ -43,17 +47,30 @@ export class ReviewComponent extends React.Component<any, any> {
         }
     }
 
+    public onRunClick(act:any,index:any,e:any){
+        this.state.btn[index].toggle();
+    }
+
+
+
+    public modalHandler= (e:any)=>{
+        e.stopPropagation();
+        this.state.child.current.toggle();
+    }
+
     public render() {
         return (
             <div>
                 <ListGroup>
                     <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
                         <div className="row">
-                            <div id="display-list-title" className = "col">
-                            <strong id={this.state.review.username}>{this.state.review.username}</strong>
+                            <div id="display-list-title" className = "col"
+                                 onClick={this.modalHandler}
+                            >
+                                <strong id={this.state.review.username}>{this.state.review.username}</strong>
                             </div>
                             <div className="col">
-                                <ModalComponent buttonLabel="View Profile" onClick={(e:any) => e.stopPropagation()} usernameModal={this.state.review.username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                            <ModalComponent  ref={this.state.child}  buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={this.state.review.username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
                             </div>
                         </div>
                     </ListGroupItem>
@@ -69,12 +86,15 @@ export class ReviewComponent extends React.Component<any, any> {
                 <p/>
                 <ListGroup>
                 {this.state.review.comments.map((item:any, i:any) => {
+                    const boundActRunClick = this.onRunClick.bind(this, item ,i)
                     return (
                         <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
                         <div className="container-fluid" key={"container" + i}>
                             <div className="row" key={"row"+i}>
                             <div className="col-sm-10">
-                            <div id="display-list-title" className = "row">
+                            <div id="display-list-title" className = "row"
+                                onClick={boundActRunClick}
+                            >
                             <strong id={item.username}>{item.username}</strong>
                             </div>
                             <div className = "row" id={i} >
@@ -87,7 +107,7 @@ export class ReviewComponent extends React.Component<any, any> {
                                 {this.deleteCommentButton(i)}
                         </div>
                         <div className="col">
-                                <ModalComponent buttonLabel="View Profile" onClick={(e:any) => e.stopPropagation()} usernameModal ={this.state.review.comments[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                         <ModalComponent key={"reviews-modal"+i} ref={(ref:any)=>this.state.btn[i]=ref} id={"modal-id"+i} buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={item.username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
                         </div>
                     </ListGroupItem>
                     );
