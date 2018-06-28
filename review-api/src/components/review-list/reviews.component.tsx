@@ -67,6 +67,8 @@ export class ReviewListComponent extends React.Component<any, any> {
     public render() {
         return (
             <div>
+                <button className="btn btn-default text-right" role="button" onClick={this.back} type="button">{this.state.item.category}</button>
+                <p/>
                 <ListGroup>
                     <ListGroupItem className="list-group-item d-flex justify-content-between align-items-center list-group-item transparent-list-group">
                     <h1 className="App"><strong>{this.state.item.title}</strong></h1>
@@ -137,6 +139,10 @@ export class ReviewListComponent extends React.Component<any, any> {
             );
         } 
         return;
+    }
+
+    private back = () => {
+        this.props.history.push(`/categories/${this.state.item.category}`);
     }
 
     private editThisButton = () => {
