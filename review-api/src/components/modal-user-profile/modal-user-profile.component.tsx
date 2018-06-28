@@ -65,7 +65,7 @@ export class ModalComponent extends React.Component <any,any>{
   public render() {
     return (
       <div id="modal-wrapper">
-        <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        {/* <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button> */}
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
@@ -81,13 +81,15 @@ export class ModalComponent extends React.Component <any,any>{
             <div>
                 {this.state.reviews.map((item:any, i:number)=>{
                     return(
-                    <div key={i} onClick={(e:any)=>{this.navigateToReview(e,item.category,item.title,item.reviewID)}}>{item.body}</div>
+                    <div key={i}>
+                        <div  onClick={(e:any)=>{e.stopPropagation(); this.navigateToReview(e,item.category,item.title,item.reviewID)}}>{item.body}</div>
+                    </div>
                     )
                 })}
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="secondary" onClick={(e:any)=>{e.stopPropagation(); this.toggle()}}>Cancel</Button>
           </ModalFooter>
         </Modal>
       </div>

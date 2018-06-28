@@ -8,13 +8,15 @@ export class ReviewListComponent extends React.Component<any, any> {
     constructor(props:any) {
         super(props);
         this.state = {
+            child:React.createRef(),
             item: {
                 avgScore: '',
                 description: '',
                 title: '',
             },
+            openModal: false,
             reviewList: new Array(),
-            userReview: ''
+            userReview: '',
         }
     }
 
@@ -57,11 +59,9 @@ export class ReviewListComponent extends React.Component<any, any> {
             
     }
 
-    public modalHandler= ()=>{
-        this.setState({
-            ... this.state,
-            openModal:true,
-        })
+    public modalHandler= (e:any)=>{
+        e.stopPropagation();
+        this.state.child.current.toggle();
     }
 
     public render() {
@@ -79,12 +79,15 @@ export class ReviewListComponent extends React.Component<any, any> {
                 {this.state.reviewList.map((review:any, i:any) => {
                     // style this as a link
                     return (
+                        <div key={i}>
                         <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark">
                         <div className="container-fluid" key={"container" + i}>
                             <div className="row" key={"row"+i} onClick={(e) => this.updateReview(review.reviewID)}>
                             <div className="col-sm-10">
-                            <div id="display-list-title" className = "row">
-                            <strong id={review.reviewID}>{review.username}</strong>
+                            <div id="display-list-title" className = "row"
+                                onClick={this.modalHandler}
+                            >    
+                                <strong id={review.reviewID}>{review.username}</strong>
                             </div>
                             <div className = "row" id={review.reviewID} >
                                 Score: {review.score}
@@ -97,14 +100,15 @@ export class ReviewListComponent extends React.Component<any, any> {
                                 {this.deleteReviewButton(i)}
                             </div>
                             
-                            <div className="col">
-                                <ModalComponent buttonLabel="View Profile" usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
-                            </div>
+                            
                                 
                             </div>
                         </div>
                     </ListGroupItem>
-                            
+                        <div className="col">
+                         <ModalComponent ref={this.state.child} buttonLabel="View Profile" modalState={this.state.openModal} usernameModal ={this.state.reviewList[i].username} updateTitle={this.props.updateTitle} updateCategory={this.props.updateCategory} history={this.props.history}/>
+                        </div>
+                    </div>
                     );
                 })}
                 </ListGroup>

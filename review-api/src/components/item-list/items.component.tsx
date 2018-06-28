@@ -65,7 +65,7 @@ export class ItemListComponent extends React.Component<any, any> {
                 return(
                 <ListGroupItem key={"list"+i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark">
                     <div className="container-fluid" key={"container" + i}>
-                    <div className="row no-pad" onClick={() => this.updateTitle(item)}>
+                    <div className="row" onClick={() => this.updateTitle(item)}>
                         <div className="col-2">
                         <span><img src={this.getImage(i)} alt=""/></span>
                         </div>

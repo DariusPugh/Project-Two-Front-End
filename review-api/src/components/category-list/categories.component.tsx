@@ -48,7 +48,7 @@ export class CategoryListComponent extends React.Component<any, any> {
                         <div key={i}>
                         {/* <div className="link" onClick={this.selectCategory} id={category.category}>{category.category}</div> */}
                         <ListGroupItem key={i} className="list-group-item d-flex justify-content-between align-items-center list-group-item list-group-item-dark" onClick={this.selectCategory} id={category.category}>
-                        <span>
+                        <span >
                             <img src={this.getCatImage(i)} alt=""/>
                         </span>{category.category}
                         <Badge pill>{category.count}</Badge>

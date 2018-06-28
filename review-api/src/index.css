@@ -22,10 +22,12 @@ hr{
 }
 img {
   display: block;
-  max-width:220px;
-  max-height:85px;
-  width: auto;
-  height: auto;
+  /* max-width:220px;
+  max-height:85px; */
+  width: 140px;
+  height: 85px;
+  /* width: auto;
+  height: auto; */
 }
 
 .btn-dark {
@@ -150,4 +152,10 @@ body.modal-open{
   width: 100%;
   background-color: #000;
   border-color: #343a40;
+}
+
+.image-container{
+  /* display: inline-block;
+  max-width:220px;
+  max-height:85px; */
 }
