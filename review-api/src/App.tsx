@@ -16,7 +16,6 @@ import { ReviewListContainer } from './components/review-list/reviews.container'
 import { ReviewContainer } from './components/review/review.container';
 import { ComposeContainer } from './components/compose-review/compose.container';
 import { CreateCategoryContainer } from './components/create-category/category.container';
-
 import { EditItemContainer } from './components/edit-item/edit-item.container';
 
 class App extends React.Component {
@@ -37,15 +36,14 @@ class App extends React.Component {
                   <Route path="/register" component={RegisterContainer} />
                   <Route path="/categories/create" component={CreateCategoryContainer}/>
                   <Route path="/categories/:category/create" component={CreateItemContainer} />
-
                   <Route path="/categories/:category/:item/edit" component={EditItemContainer} />
-
                   <Route path="/categories/:category/:item/review" component={ComposeContainer} />
                   <Route path="/display-item" component={DisplayItemsContainer} />
                   <Route path="/categories/:category/:item/r/:rID" component={ReviewContainer} />
                   <Route path="/categories/:category/:item" component={ReviewListContainer}/>
                   <Route path="/categories/:category" component={ItemListContainer}/>
                   <Route path="/categories" component={CategoryListContainer} />
+                  <Route component={HomeComponent} />
                 </Switch>
             </Col>
             </Row>
