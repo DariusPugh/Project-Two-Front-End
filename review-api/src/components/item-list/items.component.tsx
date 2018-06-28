@@ -41,6 +41,20 @@ export class ItemListComponent extends React.Component<any, any> {
         }
     }
 
+    public itemDescription = (description:string)=>{
+        if(description.length > 46){
+
+            return ( 
+                <span> {description.substring(0,46)}.....</span>
+            )
+        }
+        else{
+            return(
+                <span> {description}</span>
+            )
+        }
+    }
+
     public render() {
         /*return (
             <div>
@@ -79,7 +93,7 @@ export class ItemListComponent extends React.Component<any, any> {
                             Category: {item.category}
                         </div>
                         <div className = "row" >
-                            Description: <em>{item.description}</em>
+                            Description: <em> {this.itemDescription(item.description)}</em>
                         </div>
                         <div className = "row">
                             Average Score: {item.averageScore}
